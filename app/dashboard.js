@@ -18,7 +18,7 @@ require('app/lib/**/*');
  * Ember.Object itself provides most of what
  * model layers elsewhere provide.
  */
-require('app/models/core/core');
+require('app/models/core/*');
 require('app/models/**/*');
 
 require('app/auth');
