@@ -153,7 +153,7 @@ Balanced.Auth = (function() {
 	auth.loadAdminExtension = function() {
 		var admin = 'balanced-admin';
 		if (auth.get('user.admin') && !Balanced.Shapeshifter.isLoaded(admin)) {
-			Balanced.Shapeshifter.load(admin);
+			Balanced.Shapeshifter.load(admin, auth.get('attemptedTransition') ? true : false);
 		} else if (!auth.get('user.admin') && Balanced.Shapeshifter.isLoaded(admin)) {
 			Balanced.Shapeshifter.unload(admin);
 		}

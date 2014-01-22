@@ -13,8 +13,23 @@ Balanced.LoginController = Balanced.ObjectController.extend({
 
 				var attemptedTransition = Balanced.Auth.get('attemptedTransition');
 				if (attemptedTransition) {
-					attemptedTransition.retry();
-					Balanced.Auth.set('attemptedTransition', null);
+					var i = 0;
+					function tryTransition() {
+						if (i > 10) {
+							return;
+						}
+
+						Ember.run.next(function() {
+							i++;
+							attemptedTransition = attemptedTransition.retry();
+
+							attemptedTransition.promise.then(function() {
+								Balanced.Auth.set('attemptedTransition', null);
+							}, tryTransition);
+						});
+					}
+
+					tryTransition();
 				} else {
 					self.transitionToRoute('index');
 				}
