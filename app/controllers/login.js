@@ -16,6 +16,7 @@ Balanced.LoginController = Balanced.ObjectController.extend({
 					var i = 0;
 					function tryTransition() {
 						if (i > 10) {
+							Balanced.Auth.set('attemptedTransition', null);
 							return;
 						}
 
