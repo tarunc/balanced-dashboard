@@ -29,16 +29,20 @@ Balanced.StartRoute = Balanced.Route.extend({
 	},
 	actions: {
 		goToDashboard: function() {
+			Balanced.Analytics.trackClick('Start-Page-Demo-Dashboard');
 			this.transitionTo('activity', this.currentModel);
 		},
 		goToDocumentation: function() {
+			Balanced.Analytics.trackClick('Start-Page-Docs');
 			window.location = 'https://docs.balancedpayments.com';
 		},
 		goToApply: function() {
+			Balanced.Analytics.trackClick('Start-Page-Apply-Production');
 			this.transitionTo('marketplaces.apply');
 		},
 		goToLogin: function() {
 			// Since we already logged them in as guest, log them out so they can sign in as themselves
+			Balanced.Analytics.trackClick('Start-Page-Login');
 			Balanced.Auth.forgetLogin();
 			this.transitionTo('login');
 		}

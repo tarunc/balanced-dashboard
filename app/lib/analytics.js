@@ -61,11 +61,21 @@ Balanced.Analytics = (function() {
 			$(document).on('click', 'a,.btn,button', function() {
 				var e = $(this);
 				// trims text contained in element
-				var tt = e.text().replace(/^\s*([\S\s]*?)\s*$/, '$1');
-				var eventName = 'click ' + tt;
+				var tt = e.prop('data-evt');
+				if (!tt) {
+					tt = e.text().replace(/^\s*([\S\s]*?)\s*$/, '$1');
+				}
 
-				Balanced.Analytics.trackEvent(eventName, {});
+				Balanced.Analytics.trackClick(tt);
 			});
+		},
+		trackClick: function(name, data) {
+			data = data || {};
+			var eventName = 'click ' + name;
+
+			Balanced.Analytics.trackEvent(eventName, _.extend({
+				location: location.hash
+			}, data));
 		},
 		trackPage: _.debounce(function(page) {
 			var currentLocation = page + location.hash;
@@ -85,6 +95,12 @@ Balanced.Analytics = (function() {
 			if (Balanced.currentMarketplace) {
 				data.marketplaceId = Balanced.currentMarketplace.get('id');
 				data.marketplaceName = Balanced.currentMarketplace.get('name');
+				data.marketplaceIsProduction = Balanced.currentMarketplace.get('production');
+			}
+
+			if (Balanced.Auth.get('user')) {
+				data.signedIn = true;
+				data.isAdmin = Balanced.Auth.get('user.admin');
 			}
 
 			var filteredData = Balanced.Utils.filterSensitivePropertiesMap(data);
