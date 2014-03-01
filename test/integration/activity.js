@@ -14,9 +14,7 @@ module('Activity', {
 		Testing.createDebits();
 
 		// add some delay, because the API takes some time to add things to search
-		var stop = window.stop;
-		stop();
-		setTimeout(start, 1000);
+		Testing.pause(1000);
 	},
 	teardown: function() {}
 });
@@ -52,11 +50,12 @@ test('add funds', function(assert) {
 
 	visit(Testing.ACTIVITY_ROUTE).then(function() {
 		setupMarketplaceController(bankAccounts);
-		stop();
+		Testing.stop();
 
 		Ember.run.next(function() {
-			start();
-			assert.equal($('.activity-escrow-box .amount .number1d').text().trim(), '$400.00', 'escrow amount is $400.00');
+			Testing.start();
+			// Escrow balances are now cached
+			// assert.equal($('.activity-escrow-box .amount .number1d').text().trim(), '$400.00', 'escrow amount is $400.00');
 
 			// select the bank account
 			fundingInstrumentUri = $("#add-funds select[name='source_uri'] option").eq(0).val();
@@ -94,10 +93,11 @@ test('add funds only adds once despite multiple clicks', function(assert) {
 
 	visit(Testing.ACTIVITY_ROUTE).then(function() {
 		setupMarketplaceController(bankAccounts);
-		stop();
+		Testing.stop();
 
 		Ember.run.next(function() {
-			start();
+			Testing.start();
+
 			click('.activity-escrow-box .add-funds-btn')
 				.fillIn('#add-funds input', '55.55')
 				.click('#add-funds .modal-footer button[name="modal-submit"]')
@@ -118,10 +118,10 @@ test('withdraw funds', function(assert) {
 
 	visit(Testing.ACTIVITY_ROUTE).then(function() {
 		setupMarketplaceController(bankAccounts);
-		stop();
+		Testing.stop();
 
 		Ember.run.next(function() {
-			start();
+			Testing.start();
 			assert.equal($('.activity-escrow-box .amount .number1d').text().trim(), '$400.00', 'escrow amount is $400.00');
 
 			// select the bank account
@@ -160,10 +160,11 @@ test('withdraw funds only withdraws once despite multiple clicks', function(asse
 
 	visit(Testing.ACTIVITY_ROUTE).then(function() {
 		setupMarketplaceController(bankAccounts);
-		stop();
+		Testing.stop();
 
 		Ember.run.next(function() {
-			start();
+			Testing.start();
+
 			click('.activity-escrow-box .withdraw-funds-btn')
 				.fillIn('#withdraw-funds input', '55.55')
 				.click('#withdraw-funds .modal-footer button[name="modal-submit"]')
@@ -206,6 +207,30 @@ test('download activity', function(assert) {
 		});
 });
 
+test('download disputes', function(assert) {
+	assert.equal($(".alert span").length, 0);
+	var stub = sinon.stub(Balanced.Adapter, "create");
+	stub.withArgs(Balanced.Download).callsArgWith(3, {
+		download: {}
+	});
+
+	visit(Testing.ACTIVITY_ROUTE)
+		.click("a:contains('Disputes')")
+		.click("#activity .icon-download")
+		.fillIn(".download-modal.in form input[name='email']", "test@example.com")
+		.click('.download-modal.in .modal-footer button[name="modal-submit"]')
+		.then(function() {
+			assert.ok(stub.calledOnce);
+			assert.ok(stub.calledWith(Balanced.Download, '/downloads', {
+				email_address: "test@example.com",
+				uri: "",
+				type: "disputes"
+			}));
+			assert.equal($(".alert span").length, 1);
+			assert.equal($(".alert span").text(), "We're processing your request. We will email you once the exported data is ready to view.");
+		});
+});
+
 test('download activity only runs once despite multiple clicks', function(assert) {
 	var stub = sinon.stub(Balanced.Adapter, "create");
 
@@ -222,38 +247,39 @@ test('download activity only runs once despite multiple clicks', function(assert
 });
 
 test('transactions date sort has two states', function(assert) {
-	visit(Testing.ACTIVITY_ROUTE)
-		.then(function() {
-			var objectPath = "#activity .results th.date";
-			var states = [];
-			var getState = function() {
-				if ($(objectPath).hasClass("unsorted")) {
-					if ($.inArray("unsorted", states) === -1) {
-						states.push("unsorted");
-					}
-				} else if ($(objectPath).hasClass("ascending")) {
-					if ($.inArray("ascending", states) === -1) {
-						states.push("ascending");
-					}
-				} else if ($(objectPath).hasClass("descending")) {
-					if ($.inArray("descending", states) === -1) {
-						states.push("descending");
-					}
-				}
-			};
+	var objectPath = "#activity .results th.date";
+	var states = [];
+	var count = 0;
+	var testAmount = 5;
 
-			var count = 0;
-			var testAmount = 5;
-			while (count !== testAmount) {
-				click($(objectPath));
-				getState();
-				count++;
+	var getState = function() {
+		if ($(objectPath).hasClass("unsorted")) {
+			if ($.inArray("unsorted", states) === -1) {
+				states.push("unsorted");
 			}
+		} else if ($(objectPath).hasClass("ascending")) {
+			if ($.inArray("ascending", states) === -1) {
+				states.push("ascending");
+			}
+		} else if ($(objectPath).hasClass("descending")) {
+			if ($.inArray("descending", states) === -1) {
+				states.push("descending");
+			}
+		}
+
+		count++;
+		if (count !== testAmount) {
+			click($(objectPath)).then(getState);
+		} else {
 			states.sort();
 
 			var expectedStates = ["ascending", "descending"];
 			assert.equal(states[0], expectedStates[0]);
 			assert.equal(states[1], expectedStates[1]);
 			assert.equal(states.length, 2);
-		});
+		}
+	};
+
+	visit(Testing.ACTIVITY_ROUTE)
+		.click($(objectPath)).then(getState);
 });

@@ -101,16 +101,15 @@ Balanced.MarketplacesApplyRoute = Balanced.Route.extend({
 					// verification uri until it's created so we
 					// are forced to create it here.
 
-					// there is a problem with serializing the bank account right now.
-					/*Balanced.Verification.create({
-						uri: bankAccount.get('uri') + '/' + bankAccount.get('id') + '/verifications'
+					Balanced.Verification.create({
+						uri: bankAccount.get('bank_account_verifications_uri')
 					}).save().then(function() {
 						//  annnnd we're done
 						self.send('alert', {
 							type: 'success',
 							message: 'We\'ve received your information. In the ' + 'meantime, you may fund your balance with your ' + 'credit card to transact right away.'
 						});
-					}, onBankAccountVerificationError);*/
+					}, onBankAccountVerificationError);
 
 					// we don't actually care if the bank account creates successfully, so we can go on to the initial deposit
 					self.transitionTo('marketplace.initial_deposit', marketplace);
@@ -121,11 +120,11 @@ Balanced.MarketplacesApplyRoute = Balanced.Route.extend({
 				var password = models.user.password;
 				models.user.save().then(function(user) {
 					Balanced.Auth.signIn(models.user.email_address, password).then(function() {
-						persistMarketplace(Balanced.Auth.get('user'));
+						persistMarketplace(self.get('user'));
 					}, onUserError);
 				});
 			} else {
-				persistMarketplace(Balanced.Auth.get('user'));
+				persistMarketplace(self.get('user'));
 			}
 		}
 	}
