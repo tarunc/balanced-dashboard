@@ -46,6 +46,10 @@ Balanced.ResultsTable = Ember.Mixin.create({
 		},
 
 		loadMore: function(results) {
+			if (!results) {
+				results = this.get('results');
+			}
+
 			results.loadNextPage();
 		},
 
@@ -53,6 +57,8 @@ Balanced.ResultsTable = Ember.Mixin.create({
 			this.notifyPropertyChange('search_params');
 		},
 	},
+
+	hasMore: Ember.computed.alias('results.hasNextPage'),
 
 	results: function() {
 		if (!this.get('fetch_results')) {

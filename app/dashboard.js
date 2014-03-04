@@ -30,6 +30,7 @@ require('app/auth');
  * programming to do.
  */
 require('app/views/_base');
+require('app/views/mixins/**/*');
 require('app/views/**/*');
 
 /*
