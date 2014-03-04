@@ -24,7 +24,7 @@ module('Logs', {
 			}
 		};
 
-		setTimeout(checkAndStart, 1000);
+		setTimeout(checkAndStart, 5000);
 	},
 	teardown: function() {}
 });
