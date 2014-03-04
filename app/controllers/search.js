@@ -60,6 +60,9 @@ Balanced.SearchController = Balanced.ObjectController.extend(
 					return;
 				}
 
+				Balanced.Analytics.trackEvent('Search-Query', {
+					query: this.get('search')
+				});
 				this.set('debounced_search', this.get('search'));
 				this.set('showResults', true);
 			},
@@ -115,6 +118,9 @@ Balanced.SearchController = Balanced.ObjectController.extend(
 		redirectToLog: function(ohm) {
 			var self = this;
 
+			Balanced.Analytics.trackEvent('Search-Redirect-Log', {
+				ohm: ohm
+			});
 			var logUri = Balanced.Log.constructUri(ohm);
 			Balanced.Log.find(logUri).then(function(log) {
 				self.send('closeSearch');
