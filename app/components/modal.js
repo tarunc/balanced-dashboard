@@ -15,9 +15,8 @@ Balanced.ModalComponent = Ember.Component.extend({
 		open: function(model) {
 			var self = this;
 			var modalElement = this.get('modalElement');
-			Balanced.Analytics.trackEvent(this.get('name') + '-Open', {
-				model: model && model.toJSON()
-			});
+
+			Balanced.Analytics.trackEvent(this.get('name') + '-Open');
 
 			if (model) {
 				model.on('didCreate', function() {
