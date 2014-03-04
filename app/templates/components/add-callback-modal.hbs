@@ -1,31 +1,31 @@
 <div class="modal hide" id="add-callback">
-    <form {{action "save" on="submit" target="view"}}>
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h2>Add Webhook</h2>
-    </div>
-    <div class="modal-body">
-        {{partial "modals/modalErrors"}}
+	<form {{action "save" on="submit" target="view"}}>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h2>Add Webhook</h2>
+		</div>
+		<div class="modal-body">
+			{{partial "modals/modalErrors"}}
 
-        <div {{bind-attr class=":control-group view.model.validationErrors.url:error"}}>
-            <label>URI</label>
-            {{view Ember.TextField valueBinding="view.model.url" name="url" class="full"}}
-        </div>
-        <div class="control-group">
-          <label>Revision</label>
-          {{view Ember.Select
-              contentBinding="view.callback_revisions"
-              valueBinding="view.model.revision"
-              class="full"
-              name="callback-revision"
-              optionValuePath="content.value"
-              optionLabelPath="content.label"
-         }}
-        </div>
-    </div>
-    <div class="modal-footer">
-        {{view Balanced.ModalActionButtonsView submitTitle="Add"}}
-    </div>
-    </form>
+			<div {{bind-attr class=":control-group view.model.validationErrors.url:error"}}>
+				<label>URI</label>
+				{{view Ember.TextField valueBinding="view.model.url" name="url" class="full"}}
+			</div>
+			<div class="control-group">
+				<label>Revision</label>
+				{{view Ember.Select
+					contentBinding="view.callback_revisions"
+					valueBinding="view.model.revision"
+					class="full"
+					name="callback-revision"
+					optionValuePath="content.value"
+					optionLabelPath="content.label"
+				}}
+			</div>
+		</div>
+		<div class="modal-footer">
+			{{view Balanced.ModalActionButtonsView eventTitle="Add-Callback-Modal" submitTitle="Add"}}
+		</div>
+	</form>
 </div>
-<a href="#" class="add" {{action "open"}}>Add a webhook</a>
+<a href="#" data-evt="Add-Callback-Modal-Open" class="add" {{action "open"}}>Add a webhook</a>

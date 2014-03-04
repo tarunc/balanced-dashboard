@@ -1,57 +1,57 @@
 <div class="modal hide wide-modal" id="add-bank-account">
-    <form {{action "save" on="submit" target="view"}} class="form-horizontal split-labels">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h2>Add a bank account</h2>
-        </div>
-        <div class="modal-body modal-with-headers">
-            <div class="modal-content-error">
-                {{partial "modals/modalErrors"}}
-            </div>
+	<form {{action "save" on="submit" target="view"}} class="form-horizontal split-labels">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h2>Add a bank account</h2>
+		</div>
+		<div class="modal-body modal-with-headers">
+			<div class="modal-content-error">
+				{{partial "modals/modalErrors"}}
+			</div>
 
-            <div class="modal-content">
-                <div {{bind-attr class=":control-group view.model.validationErrors.name:error"}}>
-                    <label class="control-label">Account holder's name</label>
-                    <div class="controls">
-                        {{view Ember.TextField valueBinding="view.model.name" name="name" class="full"}}
-                        <div class="alert alert-error row-full label4b">{{formatError view.model.validationErrors.name}}</div>
-                    </div>
-                </div>
+			<div class="modal-content">
+				<div {{bind-attr class=":control-group view.model.validationErrors.name:error"}}>
+					<label class="control-label">Account holder's name</label>
+					<div class="controls">
+						{{view Ember.TextField valueBinding="view.model.name" name="name" class="full"}}
+						<div class="alert alert-error row-full label4b">{{formatError view.model.validationErrors.name}}</div>
+					</div>
+				</div>
 
-                <div {{bind-attr class=":control-group view.model.validationErrors.routing_number:error"}}>
-                    <label class="control-label">Routing Number</label>
-                    <div class="controls">
-                        {{view Ember.TextField valueBinding="view.model.routing_number" name="routing_number" class="full"}}
-                        <div class="alert alert-error row-full label4b">{{formatError view.model.validationErrors.routing_number}}</div>
-                    </div>
-                </div>
+				<div {{bind-attr class=":control-group view.model.validationErrors.routing_number:error"}}>
+					<label class="control-label">Routing Number</label>
+					<div class="controls">
+						{{view Ember.TextField valueBinding="view.model.routing_number" name="routing_number" class="full"}}
+						<div class="alert alert-error row-full label4b">{{formatError view.model.validationErrors.routing_number}}</div>
+					</div>
+				</div>
 
-                <div {{bind-attr class=":control-group view.model.validationErrors.account_number:error"}}>
-                    <label class="control-label">Account number</label>
-                    <div class="controls">
-                        {{view Ember.TextField valueBinding="view.model.account_number" name="account_number" class="full"}}
-                        <div class="alert alert-error row-full label4b">{{formatError view.model.validationErrors.account_number}}</div>
-                    </div>
-                </div>
+				<div {{bind-attr class=":control-group view.model.validationErrors.account_number:error"}}>
+					<label class="control-label">Account number</label>
+					<div class="controls">
+						{{view Ember.TextField valueBinding="view.model.account_number" name="account_number" class="full"}}
+						<div class="alert alert-error row-full label4b">{{formatError view.model.validationErrors.account_number}}</div>
+					</div>
+				</div>
 
-                <div {{bind-attr class=":control-group view.model.validationErrors.type:error"}}>
-                    <label class="control-label">Account type</label>
-                    <div class="controls">
-                        <input type="radio" name="account_type" value="checking">
-                        <label for="checking" class="radio-label">Checking</label>
-                        <input type="radio" name="account_type" value="savings">
-                        <label for="savings" class="radio-label">Savings</label>
-                        <div class="alert alert-error row-full">{{formatError view.model.validationErrors.type}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-informational">
-                <img src="images/bank-account-instructions.png" alt="Bank Account Instructions" class="modal-informational-content"/>
-            </div>
-        </div>
-        <div class="modal-footer">
-            {{view Balanced.ModalActionButtonsView eventTitle="Add-Bank-Account-Modal" submitTitle="Add"}}
-        </div>
-    </form>
+				<div {{bind-attr class=":control-group view.model.validationErrors.type:error"}}>
+					<label class="control-label">Account type</label>
+					<div class="controls">
+						<input type="radio" name="account_type" value="checking">
+						<label for="checking" class="radio-label">Checking</label>
+						<input type="radio" name="account_type" value="savings">
+						<label for="savings" class="radio-label">Savings</label>
+						<div class="alert alert-error row-full">{{formatError view.model.validationErrors.type}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-informational">
+				<img src="images/bank-account-instructions.png" alt="Bank Account Instructions" class="modal-informational-content"/>
+			</div>
+		</div>
+		<div class="modal-footer">
+			{{view Balanced.ModalActionButtonsView eventTitle="Add-Bank-Account-Modal" submitTitle="Add"}}
+		</div>
+	</form>
 </div>
-<a href="#" class="add" {{action "open"}}>Add a bank account</a>
+<a href="#" data-evt="Add-Bank-Account-Modal-Open" class="add" {{action "open"}}>Add a bank account</a>

@@ -76,9 +76,9 @@
 		</div>
 
 		<div class="modal-footer">
-			{{view Balanced.ModalActionButtonsView submitTitle="Add"}}
+			{{view Balanced.ModalActionButtonsView eventTitle="Add-Funds-Modal" submitTitle="Add"}}
 		</div>
 	</form>
 </div>
 
-<a class="btn add-funds-btn" {{action "open"}}>Add funds</a>
+<a class="btn add-funds-btn" data-evt="Add-Funds-Modal-Open" {{action "open"}}>Add funds</a>
