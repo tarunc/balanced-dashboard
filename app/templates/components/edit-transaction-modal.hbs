@@ -1,22 +1,23 @@
 <div class="modal wide-modal edit-transaction hide">
-    <form class="form-horizontal split-labels" {{action "save" on="submit"}}>
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h2>Edit info</h2>
-        </div>
-        <div class="modal-body">
-            {{partial "modals/modalErrors"}}
+	<form class="form-horizontal split-labels" {{action "save" on="submit"}}>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h2>Edit info</h2>
+		</div>
+		<div class="modal-body">
+			{{partial "modals/modalErrors"}}
 
-            <div {{bind-attr class=":control-group model.validationErrors.description:error"}}>
-                <label class="control-label">Internal Description</label>
-                <div class="controls">
-                    {{view Ember.TextField valueBinding="model.description" name="description" class="full" maxlengthBinding="Balanced.MAXLENGTH.DESCRIPTION"}}
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            {{view Balanced.ModalActionButtonsView}}
-        </div>
-    </form>
+			<div {{bind-attr class=":control-group model.validationErrors.description:error"}}>
+				<label class="control-label">Internal Description</label>
+				<div class="controls">
+					{{view Ember.TextField valueBinding="model.description" name="description" class="full" maxlengthBinding="Balanced.MAXLENGTH.DESCRIPTION"}}
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			{{view Balanced.ModalActionButtonsView eventTitle="Edit-Transaction-Modal"}}
+		</div>
+	</form>
 </div>
-<a class="edit" {{action "open"}}>Edit</a>
+
+<a class="edit" data-evt="Edit-Transaction-Modal-Open" {{action "open"}}>Edit</a>

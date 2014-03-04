@@ -149,9 +149,9 @@
 		</div>
 
 		<div class="modal-footer">
-			{{view Balanced.ModalActionButtonsView submitTitle="Save" submittingTitle="Saving..."}}
+			{{view Balanced.ModalActionButtonsView eventTitle="Edit-Customer-Info-Modal" submitTitle="Save" submittingTitle="Saving..."}}
 		</div>
 	</form>
 </div>
 
-<a class="edit" {{action "open" target="view"}}>Edit</a>
+<a class="edit" data-evt="Edit-Customer-Info-Modal-Open" {{action "open" target="view"}}>Edit</a>

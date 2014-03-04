@@ -19,9 +19,9 @@
 		</div>
 
 		<div class="modal-footer">
-			{{view Balanced.ModalActionButtonsView submitTitle="Export"}}
+			{{view Balanced.ModalActionButtonsView eventTitle="Download-Modal" submitTitle="Export"}}
 		</div>
 	</form>
 </div>
 
-<a href="#" {{action "open" target="view"}} class="icon-download right">Download</a>
+<a href="#" data-evt="Download-Modal-Open" {{action "open" target="view"}} class="icon-download right">Download</a>

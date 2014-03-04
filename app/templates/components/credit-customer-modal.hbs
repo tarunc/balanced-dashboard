@@ -70,8 +70,8 @@
             <p class="modal-informational-content">Funds will appear in the bank account by the next business day. First time credits to new accounts may take 3-5 business days.</p>
         </div>
         <div class="modal-footer">
-            {{view Balanced.ModalActionButtonsView submitTitle="Credit"}}
+            {{view Balanced.ModalActionButtonsView eventTitle="Credit-Customer-Modal" submitTitle="Credit"}}
         </div>
     </form>
 </div>
-<a class="btn credit-customer" {{action "open"}}>Credit</a>
+<a data-evt="Credit-Customer-Modal-Open" class="btn credit-customer" {{action "open"}}>Credit</a>

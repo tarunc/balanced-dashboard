@@ -89,9 +89,9 @@
 		</div>
 
 		<div class="modal-footer">
-			{{view Balanced.ModalActionButtonsView submitTitle="Withdraw"}}
+			{{view Balanced.ModalActionButtonsView eventTitle="Withdraw-Funds-Modal" submitTitle="Withdraw"}}
 		</div>
 	</form>
 </div>
 
-<a class="btn withdraw-funds-btn" {{action "open"}}>Withdraw funds</a>
+<a data-evt="Withdraw-Funds-Modal-Open" class="btn withdraw-funds-btn" {{action "open"}}>Withdraw funds</a>

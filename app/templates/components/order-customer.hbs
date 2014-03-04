@@ -38,14 +38,14 @@
 	{{/if}}
 </div>
 {{#if show_transactions}}
-<div class="transaction order">
-	<div class="transaction-details">
-		{{#each credit in credits_list}}
-			{{txn-credit credit=credit}}
-		{{/each}}
-		{{#each debit in debits_list}}
-			{{txn-debit debit=debit}}
-		{{/each}}
+	<div class="transaction order">
+		<div class="transaction-details">
+			{{#each credit in credits_list}}
+				{{txn-credit credit=credit}}
+			{{/each}}
+			{{#each debit in debits_list}}
+				{{txn-debit debit=debit}}
+			{{/each}}
+		</div>
 	</div>
-</div>
 {{/if}}
