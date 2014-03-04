@@ -1,2 +1,2 @@
-<button class="btn danger" name="modal-cancel" data-dismiss="modal" aria-hidden="true" {{bind-attr disabled="view.isSubmitting"}}>Cancel</button>
-<button class="btn" name="modal-submit" {{bind-attr disabled="view.isSubmitting"}}>{{view._submitTitle}}</button>
+<button class="btn danger" data-evt="{{unbound view.cancelEventName}}" name="modal-cancel" data-dismiss="modal" aria-hidden="true" {{bind-attr disabled="view.isSubmitting"}}>Cancel</button>
+<button class="btn" data-evt="{{unbound view.eventName}}" name="modal-submit" {{bind-attr disabled="view.isSubmitting"}}>{{view._submitTitle}}</button>

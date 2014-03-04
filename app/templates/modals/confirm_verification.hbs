@@ -80,9 +80,9 @@
 
 		<div class="modal-footer">
 			{{#unless view.model.no_attempts_remaining}}
-				{{view Balanced.ModalActionButtonsView submitTitle="Confirm"}}
+				{{view Balanced.ModalActionButtonsView eventTitle="Confirm-Verification-Modal" submitTitle="Confirm"}}
 			{{else}}
-				<button class="btn danger" name="modal-submit" data-dismiss="modal" aria-hidden="true">Close</button>
+				<button class="btn danger" data-evt="Confirm-Verification-Modal-Close" name="modal-submit" data-dismiss="modal" aria-hidden="true">Close</button>
 			{{/unless}}
 		</div>
 	</form>

@@ -20,5 +20,27 @@ Balanced.ModalActionButtonsView = Balanced.View.extend({
 			return this.get('submitTitle') + 'ing...';
 		}
 		return this.get('submitTitle');
-	}.property('submitTitle', 'submittingTitle', 'isSubmitting')
+	}.property('submitTitle', 'submittingTitle', 'isSubmitting'),
+
+	eventName: function() {
+		var evtTitle = this.get('eventTitle');
+		if (evtTitle) {
+			evtTitle += '-' + this.get('submitTitle');
+		} else {
+			evtTitle = this.get('submitTitle');
+		}
+
+		return evtTitle;
+	}.property('eventTitle', 'submitTitle'),
+
+	cancelEventName: function() {
+		var evtTitle = this.get('eventTitle');
+		if (evtTitle) {
+			evtTitle += '-Cancel';
+		} else {
+			evtTitle = this.get('submitTitle');
+		}
+
+		return evtTitle;
+	}.property('eventTitle', 'submitTitle')
 });
