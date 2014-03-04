@@ -1,23 +1,23 @@
 <li>
-	{{#link-to 'activity' model}}
+	{{#link-to 'activity' model data-evt="Marketplace-Sidebar-Activity"}}
 		<i class="icon-activity"></i>
 		<span class="nav1a nav-label">Activity</span>
 	{{/link-to}}
 </li>
 <li>
-	{{#link-to 'logs.index' model}}
+	{{#link-to 'logs.index' model data-evt="Marketplace-Sidebar-Logs"}}
 		<i class="icon-logs"></i>
 		<span class="nav1a nav-label">Logs</span>
 	{{/link-to}}
 </li>
 <li>
-	{{#link-to 'invoices.index' model}}
+	{{#link-to 'invoices.index' model data-evt="Marketplace-Sidebar-Invoices"}}
 		<i class="icon-invoices"></i>
 		<span class="nav1a nav-label">Invoices</span>
 	{{/link-to}}
 </li>
 <li>
-	{{#link-to 'marketplace.settings' model}}
+	{{#link-to 'marketplace.settings' model data-evt="Marketplace-Sidebar-Settings"}}
 		<i class="icon-settings"></i>
 		<span class="nav1a nav-label">Settings</span>
 	{{/link-to}}
@@ -26,13 +26,13 @@
 <li class="nav-separator"></li>
 
 <li>
-	{{#link-to 'marketplace.add_customer'}}
+	{{#link-to 'marketplace.add_customer' data-evt="Marketplace-Sidebar-Add-Customer"}}
 		<i class="icon-addcustomer"></i>
 		<span class="nav1a nav-label">Add<br>Customer</span>
 	{{/link-to}}
 </li>
 <li>
-	<a href="#" {{action "openPaySellerModal"}}>
+	<a href="#" data-evt="Marketplace-Sidebar-Pay-Seller" {{action "openPaySellerModal"}}>
 		<i class="icon-bankaccount"></i>
 		<span class="nav1a nav-label">Pay A Seller</span>
 	</a>

@@ -6,7 +6,7 @@
 		</div>
 
 		<div id="logo" class="span2">
-			{{#link-to 'index' class="img"}}Balanced Dashboard{{/link-to}}
+			{{#link-to 'index' class="img" data-evt="Header-Logo-Dashboard"}}Balanced Dashboard{{/link-to}}
 		</div>
 
 		{{#if auth.isGuest}}
@@ -16,7 +16,7 @@
 
 			<div id="site-nav" class="span6">
 				<div id="go-live-menu">
-					{{#link-to 'marketplaces.apply' class="nav1d"}}Register{{/link-to}}
+					{{#link-to 'marketplaces.apply' class="nav1d" data-evt="Header-Guest-Marketplace-Apply"}}Register{{/link-to}}
 				</div>
 				<div id="docs-menu">
 					<a data-evt="Guest-Header-Docs" href="https://docs.balancedpayments.com" class="nav1d" target="new">docs</a>

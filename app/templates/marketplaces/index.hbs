@@ -20,7 +20,7 @@
 											<div class="icon"></div>
 										</div>
 										<div class="info">
-											<h3 class="label1d name">{{#link-to 'activity' user_marketplace.id}}{{user_marketplace.name}}{{/link-to}}</h3>
+											<h3 class="label1d name">{{#link-to 'activity' user_marketplace.id data-evt="Manage-Marketplaces-Page-Production-Marketplace"}}{{user_marketplace.name}}{{/link-to}}</h3>
 										</div>
 									</li>
 								{{/if}}
@@ -47,7 +47,7 @@
 										<a href="#" data-evt="Delete-Test-Marketplace" class="icon-delete" {{action "promptToDeleteMarketplace" user_marketplace}}>&times;</a>
 										<div class="icon"></div>
 										<div class="info">
-											<h3 class="label1d name">{{#link-to 'activity' user_marketplace.id}}{{user_marketplace.name}}{{/link-to}}</h3>
+											<h3 class="label1d name">{{#link-to 'activity' user_marketplace.id data-evt="Manage-Marketplaces-Page-Test-Marketplace"}}{{user_marketplace.name}}{{/link-to}}</h3>
 										</div>
 									</li>
 								{{/unless}}
@@ -70,7 +70,7 @@
 								<div class="icon"></div>
 								<div class="info">
 									<h2 class="label3d name">Not transacting yet? Register for production access.</h2>
-									{{#link-to 'marketplaces.apply' classNames="btn"}}Register{{/link-to}}
+									{{#link-to 'marketplaces.apply' classNames="btn" data-evt="Manage-Marketplaces-Page-Apply-Production"}}Register{{/link-to}}
 								</div>
 							</li>
 						</ul>

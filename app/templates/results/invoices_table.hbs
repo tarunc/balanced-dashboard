@@ -28,32 +28,32 @@
 	{{#each invoice in results}}
 		<tr>
 			<td class="span4 black">
-				{{#link-to 'invoices.invoice' invoice}}
+				{{#link-to 'invoices.invoice' invoice data-evt="Results-Table-Invoice"}}
 					<span>{{humanReadableDateShort invoice.created_at}}</span>
 				{{/link-to}}
 			</td>
 			<td class="span2 black">
-				{{#link-to 'invoices.invoice' invoice}}
+				{{#link-to 'invoices.invoice' invoice data-evt="Results-Table-Invoice"}}
 					{{invoice.sequence_number}}
 				{{/link-to}}
 			</td>
 			<td class="span5 black">
-				{{#link-to 'invoices.invoice' invoice}}
+				{{#link-to 'invoices.invoice' invoice data-evt="Results-Table-Invoice"}}
 					{{humanReadableDateShort invoice.from_date}}
 				{{/link-to}}
 			</td>
 			<td class="span5 black">
-				{{#link-to 'invoices.invoice' invoice}}
+				{{#link-to 'invoices.invoice' invoice data-evt="Results-Table-Invoice"}}
 					{{humanReadableDateShort invoice.to_date}}
 				{{/link-to}}
 			</td>
 			<td class="span2 black amount">
-				{{#link-to 'invoices.invoice' invoice}}
+				{{#link-to 'invoices.invoice' invoice data-evt="Results-Table-Invoice"}}
 					{{formatCurrency invoice.total_fee}}
 				{{/link-to}}
 			</td>
 			<td class="span2 black status">
-				{{#link-to 'invoices.invoice' invoice}}
+				{{#link-to 'invoices.invoice' invoice data-evt="Results-Table-Invoice"}}
 					{{invoice.state}}
 				{{/link-to}}
 			</td>

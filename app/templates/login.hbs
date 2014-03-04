@@ -10,7 +10,7 @@
 							{{view Ember.TextField type="password" name="password" valueBinding="password" placeholder="Password" action="signIn"}}
 							<div class="clear"></div>
 
-							{{#link-to "forgotPassword" class="pull-left forgot-password"}}Forgot password?{{/link-to}}
+							{{#link-to "forgotPassword" class="pull-left forgot-password" data-evt="Login-Page-Forgot-Password"}}Forgot password?{{/link-to}}
 
 							<button class="pull-right" type="submit" {{bind-attr disabled="isSubmitting"}}>Sign In</button>
 							{{#if isSubmitting}}

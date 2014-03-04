@@ -27,12 +27,12 @@
 	{{#each funding_instrument in view.fundingInstruments}}
 		<tr>
 			<td>
-				{{#link-to funding_instrument.route_name funding_instrument}}<span>
+				{{#link-to funding_instrument.route_name funding_instrument data-evt="Results-Table-Funding-Instrument"}}<span>
 					<time {{bind-attr datetime="funding_instrument.created_at"}} {{bind-attr title="funding_instrument.created_at"}}>{{humanReadableDateShort funding_instrument.created_at}}</time>
 				</span>{{/link-to}}
 			</td>
 			<td>
-				{{#link-to funding_instrument.route_name funding_instrument}}<span>
+				{{#link-to funding_instrument.route_name funding_instrument data-evt="Results-Table-Funding-Instrument"}}<span>
 					{{funding_instrument.type_name}}
 					{{#if funding_instrument.is_bank_account}}
 						({{funding_instrument.account_type}})
@@ -40,12 +40,12 @@
 				</span>{{/link-to}}
 			</td>
 			<td {{bind-attr title="funding_instrument.description"}}>
-				{{#link-to funding_instrument.route_name funding_instrument}}<span>
+				{{#link-to funding_instrument.route_name funding_instrument data-evt="Results-Table-Funding-Instrument"}}<span>
 					{{funding_instrument.description}}
 				</span>{{/link-to}}
 			</td>
 			<td>
-				{{#link-to funding_instrument.route_name funding_instrument}}<span>
+				{{#link-to funding_instrument.route_name funding_instrument data-evt="Results-Table-Funding-Instrument"}}<span>
 					{{funding_instrument.customer.name}}
 					{{funding_instrument.customer.email}}
 				</span>{{/link-to}}

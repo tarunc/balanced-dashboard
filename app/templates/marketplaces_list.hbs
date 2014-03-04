@@ -5,7 +5,7 @@
 			{{#each user_marketplace in user.user_marketplaces}}
 				{{#if user_marketplace.production}}
 					<li class="label2a">
-						{{#link-to 'activity' user_marketplace.id}}{{user_marketplace.name}}{{/link-to}}
+						{{#link-to 'activity' user_marketplace.id data-evt="Header-Marketplaces-Dropdown-Production-Marketplace"}}{{user_marketplace.name}}{{/link-to}}
 					</li>
 				{{/if}}
 			{{/each}}
@@ -18,7 +18,7 @@
 			{{#each user_marketplace in user.user_marketplaces}}
 				{{#unless user_marketplace.production}}
 					<li class="label2a">
-						{{#link-to 'activity' user_marketplace.id}}{{user_marketplace.name}}{{/link-to}}
+						{{#link-to 'activity' user_marketplace.id data-evt="Header-Marketplaces-Dropdown-Test-Marketplace"}}{{user_marketplace.name}}{{/link-to}}
 					</li>
 				{{/unless}}
 			{{/each}}
@@ -26,6 +26,6 @@
 	</li>
 
 	{{#unless auth.isGuest}}
-		<li class="new label2d manage-marketplaces">{{#link-to 'marketplaces'}}Manage marketplaces{{/link-to}}</li>
+		<li class="new label2d manage-marketplaces">{{#link-to 'marketplaces' data-evt="Header-Manage-Marketplaces"}}Manage marketplaces{{/link-to}}</li>
 	{{/unless}}
 </ul>
