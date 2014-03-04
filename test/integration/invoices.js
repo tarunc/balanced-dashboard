@@ -38,34 +38,39 @@ test('invoice detail page', function(assert) {
 		".invoice-details-table .subtotal-row .total": "$17.85"
 	};
 
-
 	visit('/marketplaces/TEST-MP4cOZZqeAelhxXQzljLLtgl' + invoiceUri)
 		.then(function() {
 			_.each(expectedValues, function(value, selector) {
 				assert.equal($(selector).text().trim(), value);
 			});
-
-			assert.ok(spy.calledWith(Balanced.Invoice, invoiceUri));
 		})
 		.click('.activity .results header li.debit-cards a')
-		.then(function() {
-			assert.ok(spy.calledWith(Balanced.Debit, invoiceUri + '/card_debits'));
-		})
 		.click('.activity .results header li.holds a')
-		.then(function() {
-			assert.ok(spy.calledWith(Balanced.Hold, invoiceUri + '/holds'));
-		})
 		.click('.activity .results header li.debit-bank-accounts a')
-		.then(function() {
-			assert.ok(spy.calledWith(Balanced.Debit, invoiceUri + '/bank_account_debits'));
-		})
 		.click('.activity .results header li.credits a')
-		.then(function() {
-			assert.ok(spy.calledWith(Balanced.Credit, invoiceUri + '/credits'));
-		})
+		.click('.activity .results header li.failed-credits a')
 		.click('.activity .results header li.refunds a')
+		.click('.activity .results header li.reversals a')
+		.click('.activity .results header li.disputes a')
 		.then(function() {
-			assert.ok(spy.calledWith(Balanced.Refund, invoiceUri + '/refunds'));
+			var expectations = [
+				[Balanced.Hold, "/holds"],
+				[Balanced.Debit, '/card_debits'],
+				[Balanced.Debit, '/bank_account_debits'],
+				[Balanced.Credit, '/credits'],
+				[Balanced.Credit, '/failed_credits'],
+				[Balanced.Refund, '/refunds'],
+				[Balanced.Reversal, '/reversals'],
+				[Balanced.Dispute, '/disputes']
+			];
+
+			assert.ok(spy.getCall(1).calledWith(Balanced.Invoice, invoiceUri), "Load invoices index");
+
+			expectations.forEach(function(expectation, i) {
+				var model = expectation[0];
+				var uri = invoiceUri + expectation[1];
+				assert.ok(spy.getCall(i + 3).calledWith(model, uri));
+			});
 		});
 });
 
@@ -81,7 +86,7 @@ test('change invoice funding source', function(assert) {
 		.click('#change-funding-source form button[name="modal-submit"]')
 		.then(function() {
 			assert.ok(spy.calledWith(Balanced.Invoice, invoiceUri));
-			assert.equal(spy.callCount, 7);
+			assert.equal(spy.callCount, 6);
 			assert.ok(stub.calledWith(Balanced.Invoice, invoiceUri));
 			assert.equal(stub.callCount, 1);
 		});

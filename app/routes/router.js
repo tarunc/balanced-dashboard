@@ -77,6 +77,9 @@ Balanced.Router.map(function() {
 			this.route('initial_deposit', {
 				path: '/initial_deposit'
 			});
+			this.route("import_payouts", {
+				path: "import_payouts"
+			});
 
 			this.resource('activity', {
 				path: '/activity'
@@ -92,6 +95,9 @@ Balanced.Router.map(function() {
 				});
 				this.route('funding_instruments', {
 					path: '/funding_instruments'
+				});
+				this.route('disputes', {
+					path: '/disputes'
 				});
 			});
 
@@ -119,6 +125,9 @@ Balanced.Router.map(function() {
 			});
 			this.resource('debits', {
 				path: '/debits/:debit_id'
+			});
+			this.resource('disputes', {
+				path: '/disputes/:dispute_id'
 			});
 			this.resource('holds', {
 				path: '/holds/:hold_id'

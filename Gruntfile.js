@@ -75,15 +75,15 @@ module.exports = function(grunt) {
 					'static/javascripts/bootstrap/js/bootstrap-modal.js',
 					'static/javascripts/bootstrap/js/bootstrap-tooltip.js',
 					'static/javascripts/bootstrap/js/bootstrap-popover.js',
-					'static/javascripts/jquery.browser/jquery.browser.js',
-					'static/javascripts/underscore/underscore.js',
+					'static/javascripts/lodash/dist/lodash.underscore.js',
 					'static/javascripts/mixpanel/mixpanel.js',
 					'static/javascripts/google-code-prettify/src/prettify.js',
 					'static/javascripts/strftime/index.js',
 					'static/javascripts/jquery-hotkeys/jquery.hotkeys.js',
 					'static/javascripts/jquery.cookie/jquery.cookie.js',
 					'static/javascripts/bootstrap-modal/js/bootstrap-modalmanager.js',
-					'static/javascripts/bootstrap-modal/js/bootstrap-modal.js'
+					'static/javascripts/bootstrap-modal/js/bootstrap-modal.js',
+					'static/javascripts/jquery-csv/src/jquery.csv.js'
 				],
 				dest: 'build/js/lib-dev.js'
 			},
@@ -99,15 +99,15 @@ module.exports = function(grunt) {
 					'static/javascripts/bootstrap/js/bootstrap-modal.js',
 					'static/javascripts/bootstrap/js/bootstrap-tooltip.js',
 					'static/javascripts/bootstrap/js/bootstrap-popover.js',
-					'static/javascripts/jquery.browser/jquery.browser.js',
-					'static/javascripts/underscore/underscore.js',
+					'static/javascripts/lodash/dist/lodash.underscore.min.js',
 					'static/javascripts/mixpanel/mixpanel.js',
 					'static/javascripts/google-code-prettify/src/prettify.js',
 					'static/javascripts/strftime/index.js',
 					'static/javascripts/jquery-hotkeys/jquery.hotkeys.js',
 					'static/javascripts/jquery.cookie/jquery.cookie.js',
 					'static/javascripts/bootstrap-modal/js/bootstrap-modalmanager.js',
-					'static/javascripts/bootstrap-modal/js/bootstrap-modal.js'
+					'static/javascripts/bootstrap-modal/js/bootstrap-modal.js',
+					'static/javascripts/jquery-csv/src/jquery.csv.js'
 				],
 				dest: 'build/js/lib-prod.js'
 			},
@@ -197,6 +197,14 @@ module.exports = function(grunt) {
 		},
 
 		copy: {
+			staticFiles: {
+				files: [{
+					cwd: 'static/files/',
+					expand: true,
+					src: ['**'],
+					dest: 'build/files/'
+				}]
+			},
 			css: {
 				files: [{
 					cwd: 'build/css/',
@@ -220,7 +228,7 @@ module.exports = function(grunt) {
 			},
 			fonts: {
 				files: [{
-					cwd: 'static/fonts/',
+					cwd: 'static/javascripts/strapped/static/fonts/',
 					expand: true,
 					src: [
 						'*.eot',
@@ -230,7 +238,7 @@ module.exports = function(grunt) {
 					],
 					dest: 'build/fonts/'
 				}, {
-					cwd: 'static/fonts/',
+					cwd: 'static/javascripts/strapped/static/fonts/',
 					expand: true,
 					src: [
 						'*.eot',
@@ -260,6 +268,11 @@ module.exports = function(grunt) {
 					expand: true,
 					src: ['**'],
 					dest: 'dist/images/'
+				}, {
+					cwd: 'build/files/',
+					expand: true,
+					src: ['**'],
+					dest: 'dist/files/'
 				}, {
 					cwd: 'build/fonts/',
 					expand: true,
@@ -496,7 +509,36 @@ module.exports = function(grunt) {
 
 		karma: {
 			unit: {
-				configFile: 'karma.conf.js'
+				configFile: 'karma.conf.js',
+			},
+			options: {
+				port: 9877,
+				files: (function() {
+					var file = grunt.option("file");
+					var files = [
+						'build/css/base.min.css',
+						'build/test/js/sinon.js',
+						'build/test/js/testenv.js',
+						'build/js/lib-dev.js',
+						'test/support/lib/balanced.min.js',
+						'build/js/dashboard-dev.js',
+						'build/test/js/test-fixtures.js',
+						'test/support/testconfig.js',
+						'test/lib/*.js',
+					];
+
+					if (file) {
+						file = file.split(',');
+						file.forEach(function(val) {
+							files.push(val);
+						});
+					} else {
+						files.push('test/unit/**/*');
+						files.push('test/integration/**/*');
+					}
+
+					return files;
+				})()
 			}
 		},
 
@@ -512,7 +554,10 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					'app/**/*.js',
 					'test/**/*.js',
-					'!test/support/lib/*.js'
+					'!test/support/lib/*.js',
+					'karma.conf.js',
+					'package.json',
+					'npm-shrinkwrap.json'
 				],
 			},
 			update: {
@@ -523,7 +568,10 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					'app/**/*.js',
 					'test/**/*.js',
-					'!test/support/lib/*.js'
+					'!test/support/lib/*.js',
+					'karma.conf.js',
+					'package.json',
+					'npm-shrinkwrap.json'
 				],
 			}
 		},
@@ -581,15 +629,6 @@ module.exports = function(grunt) {
 					'static/images/**/*'
 				],
 				tasks: ['_buildImages'],
-				options: {
-					livereload: true,
-				}
-			},
-			fonts: {
-				files: [
-					'static/fonts/**/*'
-				],
-				tasks: ['_buildFonts'],
 				options: {
 					livereload: true,
 				}
@@ -668,7 +707,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('deploy', ['build', 's3:productionCached', 's3:productionUncached']);
 	grunt.registerTask('deployPreview', ['build', 's3:previewCached', 's3:previewUncached']);
 
-	grunt.registerTask('_devBuild', ['clean', '_buildJS', '_buildTests', '_buildCSS', '_buildImages', '_buildFonts', '_buildHTML']);
+	grunt.registerTask('_devBuild', ['clean', '_buildJS', '_buildTests', '_buildCSS', '_buildImages', '_buildFonts', '_buildHTML', 'copy:staticFiles']);
 
 	grunt.registerTask('_uglify', ['copy:preUglify', 'uglify', 'copy:postUglify']);
 
