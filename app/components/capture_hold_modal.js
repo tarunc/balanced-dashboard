@@ -1,6 +1,7 @@
 require('app/components/modal');
 
 Balanced.CaptureHoldModalComponent = Balanced.ModalComponent.extend({
+	name: 'CaptureHoldModalComponent',
 	submitAction: 'submitCaptureHold',
 
 	actions: {

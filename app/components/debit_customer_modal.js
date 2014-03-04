@@ -1,6 +1,7 @@
 require('app/components/modal');
 
 Balanced.DebitCustomerModalComponent = Balanced.ModalComponent.extend({
+	name: 'DebitCustomerModalComponent',
 	submitAction: 'submitDebitCustomer',
 
 	dollar_amount: null,

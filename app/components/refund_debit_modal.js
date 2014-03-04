@@ -1,6 +1,7 @@
 require('app/components/modal');
 
 Balanced.RefundDebitModalComponent = Balanced.ModalComponent.extend({
+	name: 'RefundDebitModalComponent',
 	submitAction: 'submitRefundDebit',
 
 	actions: {

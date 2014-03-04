@@ -1,6 +1,7 @@
 require('app/components/modal');
 
 Balanced.ApiKeyCreateModalComponent = Balanced.ModalComponent.extend({
+	name: 'ApiKeyCreateModalComponent',
 	keyName: '',
 	actions: {
 		createKey: function() {

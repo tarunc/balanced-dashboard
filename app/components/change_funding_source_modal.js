@@ -1,6 +1,7 @@
 require('app/components/modal');
 
 Balanced.ChangeFundingSourceModalComponent = Balanced.ModalComponent.extend({
+	name: 'ChangeFundingSourceModalComponent',
 	source_uri: null,
 	submitAction: false,
 

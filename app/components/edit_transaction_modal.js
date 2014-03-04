@@ -1,6 +1,7 @@
 require('app/components/modal');
 
 Balanced.EditTransactionModalComponent = Balanced.ModalComponent.extend({
+	name: 'EditTransactionModalComponent',
 	classNames: ['modal-container', 'header-action-container'],
 
 	submitAction: false,

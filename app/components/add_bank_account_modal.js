@@ -1,6 +1,7 @@
 require('app/components/modal');
 
 Balanced.AddBankAccountModalComponent = Balanced.ModalComponent.extend({
+	name: 'AddBankAccountModalComponent',
 	actions: {
 		open: function() {
 			var bankAccount = Balanced.BankAccount.create({

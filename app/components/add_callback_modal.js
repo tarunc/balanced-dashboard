@@ -1,6 +1,7 @@
 require('app/components/modal');
 
 Balanced.AddCallbackModalComponent = Balanced.ModalComponent.extend({
+	name: 'AddCallbackModalComponent',
 	callback_revisions: [{
 		label: 'Revision 1.0',
 		value: '1.0'

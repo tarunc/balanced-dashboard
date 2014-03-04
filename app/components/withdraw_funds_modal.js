@@ -1,6 +1,7 @@
 require('app/components/modal');
 
 Balanced.WithdrawFundsModalComponent = Balanced.ModalComponent.extend({
+	name: 'WithdrawFundsModalComponent',
 	submitAction: 'submitCreditCustomer',
 	dollar_amount: null,
 

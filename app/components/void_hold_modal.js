@@ -1,6 +1,7 @@
 require('app/components/modal');
 
 Balanced.VoidHoldModalComponent = Balanced.ModalComponent.extend({
+	name: 'VoidHoldModalComponent',
 	submitAction: false,
 
 	actions: {
