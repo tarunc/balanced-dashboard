@@ -15,17 +15,17 @@ module.exports = function(grunt) {
 		neuter: {
 			dev: {
 				options: {
-					includeSourceURL: true,
-					template: "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
+					// includeSourceURL: true,
+					template: "(function(window){ {%= src %} })(this);" // "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
 				},
-				src: ['app/dashboard.js'],
+				src: ['app/app_setup.js'],
 				dest: 'build/js/includes-dev.js'
 			},
 			prod: {
 				options: {
-					template: "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
+					template: "(function(window){ {%= src %} })(this);" // "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
 				},
-				src: ['app/dashboard.js'],
+				src: ['app/app_setup.js'],
 				dest: 'build/js/includes-prod.js'
 			},
 			testfixtures: {
@@ -51,14 +51,14 @@ module.exports = function(grunt) {
 			},
 			dashboarddev: {
 				src: [
-					'app/app_setup.js',
+					// 'app/app_setup.js',
 					'build/js/includes-dev.js'
 				],
 				dest: 'build/js/dashboard-dev.js'
 			},
 			dashboardprod: {
 				src: [
-					'app/app_setup.js',
+					// 'app/app_setup.js',
 					'build/js/includes-prod.js'
 				],
 				dest: 'build/js/dashboard-prod.js'
@@ -684,7 +684,7 @@ module.exports = function(grunt) {
 	A task to run the application's unit tests via the command line.
 	It will headlessy load the test runner page and print the test runner results
 	*/
-	grunt.registerTask('test', ['_devBuild', 'karma', 'jshint', 'verify']);
+	grunt.registerTask('test', ['_devBuild', 'karma', 'verify']);
 
 	/*
 	Default task. Compiles templates, neuters application code, and begins
@@ -695,7 +695,7 @@ module.exports = function(grunt) {
 	/*
 	Builds for production.
 	*/
-	grunt.registerTask('build', ['jshint', '_devBuild', '_prodBuildSteps']);
+	grunt.registerTask('build', ['verify', '_devBuild', '_prodBuildSteps']);
 
 	grunt.registerTask('format', ['jsbeautifier:update']);
 	grunt.registerTask('verify', ['jshint', 'jsbeautifier:verify']);

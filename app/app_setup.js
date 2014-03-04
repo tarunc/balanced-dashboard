@@ -80,4 +80,6 @@ window.setupBalanced = function(divSelector) {
 
 		window.Balanced.NET.loadCSRFTokenIfNotLoaded();
 	}
+
+	require('app/dashboard');
 };
