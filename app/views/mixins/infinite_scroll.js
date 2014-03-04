@@ -13,23 +13,26 @@ Balanced.InfiniteScrollViewMixin = Ember.Mixin.create({
 	},
 
 	setupInfiniteScrollListener: function() {
-		$(this.outerContainerSelector).on('scroll', $.proxy(this.didScroll, this));
+		var $outerContainer = $(this.get('outerContainerSelector'));
+		this.set('$outerContainer', $outerContainer);
+
+		$outerContainer.on('scroll', $.proxy(this.didScroll, this));
 	},
 
 	teardownInfiniteScrollListener: function() {
-		$(this.outerContainerSelector).off('scroll', $.proxy(this.didScroll, this));
+		this.get('$outerContainer').off('scroll', $.proxy(this.didScroll, this));
 	},
 
 	didScroll: _.debounce(function() {
 		if (this.get('controller.hasMore') && this.isScrolledToBottom()) {
 			this.get('controller').send('loadMore');
 		}
-	}, 100),
+	}, 50, true),
 
 	isScrolledToBottom: function() {
-		var distanceToViewportTop = (
-			$(this.innerContainerSelector).height() - $(this.outerContainerSelector).height());
-		var viewPortTop = $(this.outerContainerSelector).scrollTop();
+		var $outerContainer = this.get('$outerContainer');
+		var distanceToViewportTop = ($(this.get('innerContainerSelector')).height() - $outerContainer.height());
+		var viewPortTop = $outerContainer.scrollTop();
 
 		if (viewPortTop === 0) {
 			// if we are at the top of the page, don't do

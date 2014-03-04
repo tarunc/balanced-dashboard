@@ -1,3 +1,3 @@
 Balanced.ActivityView = Balanced.View.extend(Balanced.InfiniteScrollViewMixin, {
-	innerContainerSelector: '#activity'
+	innerContainerSelector: '#activity .results > table'
 });
