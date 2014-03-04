@@ -61,7 +61,7 @@
 			<span class="loader loading"></span> <span class="message">Adding...</span>
 		{{else}}
 			<div class="actions">
-				<button class="btn" {{action "save"}} {{bind-attr disabled="isSaving"}}>{{submitTitle}}</button>
+				<button class="btn" data-evt="Add-Customer" {{action "save"}} {{bind-attr disabled="isSaving"}}>{{submitTitle}}</button>
 			</div>
 		{{/if}}
 	{{/if}}

@@ -25,8 +25,8 @@
 				{{#if isLoading}}
 					<span class="loader loading"></span> <span class="message">{{loadingMessage}}</span>
 				{{else}}
-					<button class="btn primary" {{action "submit"}} {{bind-attr disabled="isSaving"}}>Submit</button>
-					<button class="btn danger" {{action "skip"}}>Skip</button>
+					<button data-evt="Production-Apply-Initial-Deposit" class="btn primary" {{action "submit"}} {{bind-attr disabled="isSaving"}}>Submit</button>
+					<button data-evt="Production-Apply-Initial-Deposit-Skip" class="btn danger" {{action "skip"}}>Skip</button>
 				{{/if}}
 			</div>
 		</form>
