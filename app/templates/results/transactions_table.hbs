@@ -1,11 +1,11 @@
 <thead>
 	<tr>
-		{{#view Balanced.ResultsSortableColumnHeaderView classBinding=":span3 :label6a :date view.hideDateSort::sortable" field="created_at"}}Date{{/view}}
+		{{#view Balanced.ResultsSortableColumnHeaderView classBinding=":span3 :label6a :date view.hideDateSort::sortable" field="created_at" table="Transactions-Table"}}Date{{/view}}
 		<th class="span4 label6a type">Transaction</th>
 		<th class="span4 label6a description">Description</th>
 		<th class="span3 label6a account">Customer</th>
 		<th class="span4 label6a funding-instrument">Card or Bank Account</th>
-		{{#view Balanced.ResultsSortableColumnHeaderView class="span2 label6a amount unsorted num" field="amount"}}Amount{{/view}}
+		{{#view Balanced.ResultsSortableColumnHeaderView class="span2 label6a amount unsorted num" field="amount" table="Transactions-Table"}}Amount{{/view}}
 	</tr>
 </thead>
 
@@ -18,7 +18,7 @@
 						<span class="loader loading"></span>
 					</div>
 				{{else}}
-					<a {{action "loadMore" view.transactions}}>Load more</a>
+					<a data-evt="Transactions-Table-Load-More" {{action "loadMore" view.transactions}}>Load more</a>
 				{{/if}}
 			</td>
 		</tr>

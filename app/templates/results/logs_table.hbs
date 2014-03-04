@@ -2,7 +2,7 @@
 	<tr>
 		<th class="span3 label6a">Status</th>
 		<th class="span11 label6a">Method &amp; URI</th>
-		{{#view Balanced.ResultsSortableColumnHeaderView class="span3 label6a align-right sortable unsorted" field="created_at"}}Date{{/view}}
+		{{#view Balanced.ResultsSortableColumnHeaderView class="span3 label6a align-right sortable unsorted" field="created_at" table="Logs-Table"}}Date{{/view}}
 	</tr>
 </thead>
 
@@ -15,7 +15,7 @@
 						<span class="loader loading"></span>
 					</div>
 				{{else}}
-					<a {{action "loadMore" results}}>Load more</a>
+					<a data-evt="Logs-Table-Load-More" {{action "loadMore" results}}>Load more</a>
 				{{/if}}
 			</td>
 		</tr>

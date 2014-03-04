@@ -1,6 +1,6 @@
 <thead>
 	<tr>
-		{{#view Balanced.ResultsSortableColumnHeaderView class="span3 label6a sortable" field="created_at"}}Created{{/view}}
+		{{#view Balanced.ResultsSortableColumnHeaderView class="span3 label6a sortable" field="created_at" table="Customers-Table"}}Created{{/view}}
 		<th class="span3 label6a name">Customer Name</th>
 		<th class="span3 label6a name">Business Name</th>
 		<th class="span6 label6a email">Email</th>
@@ -16,7 +16,7 @@
 						<span class="loader loading"></span>
 					</div>
 				{{else}}
-					<a {{action "loadMore" view.customers}}>Load more</a>
+					<a data-evt="Customers-Table-Load-More" {{action "loadMore" view.customers}}>Load more</a>
 				{{/if}}
 			</td>
 		</tr>

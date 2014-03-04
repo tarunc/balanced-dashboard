@@ -4,6 +4,12 @@ Balanced.TransactionsTable = Ember.Mixin.create({
 
 	actions: {
 		changeTransactionTypeFilter: function(type, transactionType) {
+			Balanced.Analytics.trackEvent('Transactions-Table-Filter', {
+				type: type,
+				transactionType: transactionType
+			});
+			Balanced.Analytics.trackClick('Transactions-Table-Filter-' + type + '-' + transactionType);
+
 			this.setProperties({
 				type: type,
 				transactionType: transactionType

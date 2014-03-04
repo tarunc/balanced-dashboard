@@ -5,11 +5,11 @@
 <ul class="dropdown-menu date-picker right">
 	<li>
 		<ul class="set-times">
-			{{#view Balanced.DatePickerPresetView}}<a href="#">Any time</a>{{/view}}
-			{{#view Balanced.DatePickerPresetView}}<a href="#">Past hour</a>{{/view}}
-			{{#view Balanced.DatePickerPresetView}}<a href="#">Past 24 hours</a>{{/view}}
-			{{#view Balanced.DatePickerPresetView}}<a href="#">Past week</a>{{/view}}
-			{{#view Balanced.DatePickerPresetView}}<a href="#">Past month</a>{{/view}}
+			{{#view Balanced.DatePickerPresetView}}<a data-evt="Date-Picker-Any-Time" href="#">Any time</a>{{/view}}
+			{{#view Balanced.DatePickerPresetView}}<a data-evt="Date-Picker-Past-Hour" href="#">Past hour</a>{{/view}}
+			{{#view Balanced.DatePickerPresetView}}<a data-evt="Date-Picker-Past-Day" href="#">Past 24 hours</a>{{/view}}
+			{{#view Balanced.DatePickerPresetView}}<a data-evt="Date-Picker-Past-Week" href="#">Past week</a>{{/view}}
+			{{#view Balanced.DatePickerPresetView}}<a data-evt="Date-Picker-Past-Month" href="#">Past month</a>{{/view}}
 		</ul>
 		<div class="date-picker">
 			<div class="after selected">
@@ -24,7 +24,7 @@
 				{{/view}}
 			</div>
 
-			<button class="btn go" {{action "setDateVariable" target="view"}}>Go</button>
+			<button data-evt="Date-Picker-Go" class="btn go" {{action "setDateVariable" target="view"}}>Go</button>
 		</div>
 	</li>
 </ul>

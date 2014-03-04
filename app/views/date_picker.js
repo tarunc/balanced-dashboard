@@ -24,6 +24,7 @@ Balanced.DatePickerView = Balanced.View.extend({
 
 	actions: {
 		toggleDateTimePicker: function() {
+			Balanced.Analytics.trackClick('Date-Picker-Show');
 			this.$('.timing').find('.selected .dp').datepicker('show');
 		},
 
@@ -89,6 +90,13 @@ Balanced.DatePickerView = Balanced.View.extend({
 			 */
 			this.maxTime.setDate(this.maxTime.getDate() + 1);
 		}
+
+		Balanced.Analytics.trackEvent('Date-Picker-Filter', {
+			label: label,
+			minTime: this.minTime,
+			maxTime: this.maxTime
+		});
+
 		this.get('controller').send('changeDateFilter', this.minTime, this.maxTime, label);
 		this.resetDateTimePicker();
 	},

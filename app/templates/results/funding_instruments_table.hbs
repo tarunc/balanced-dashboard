@@ -1,6 +1,6 @@
 <thead>
 	<tr>
-		{{#view Balanced.ResultsSortableColumnHeaderView class="span3 label6a sortable" field="created_at"}}Created{{/view}}
+		{{#view Balanced.ResultsSortableColumnHeaderView class="span3 label6a sortable" field="created_at" table="Funding-Instruments-Table"}}Created{{/view}}
 		<th class="span4 label6a">Type</th>
 		<th class="span5 label6a">Card or bank account</th>
 		<th class="span8 label6a">Account holder's name</th>
@@ -16,7 +16,7 @@
 						<span class="loader loading"></span>
 					</div>
 				{{else}}
-					<a {{action "loadMore" view.fundingInstruments}}>Load more</a>
+					<a data-evt="Funding-Instruments-Table-Load-More" {{action "loadMore" view.fundingInstruments}}>Load more</a>
 				{{/if}}
 			</td>
 		</tr>

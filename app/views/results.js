@@ -156,7 +156,9 @@ Balanced.ResultsSortableColumnHeaderView = Balanced.View.extend({
 		var sortOrder = this.get('controller.sortOrder');
 		var allowSortByNone = this.get('controller.allowSortByNone');
 		var nextSortOrder = "desc";
-		if (sortField === this.get('field')) {
+		var field = this.get('field');
+
+		if (sortField === field) {
 			switch (sortOrder) {
 				case 'asc':
 					nextSortOrder = 'desc';
@@ -169,7 +171,9 @@ Balanced.ResultsSortableColumnHeaderView = Balanced.View.extend({
 					break;
 			}
 		}
-		this.get('controller').send('changeSortOrder', this.get('field'), nextSortOrder);
+
+		Balanced.Analytics.trackClick(this.get('table') + '-Sort-' + field + '-' + nextSortOrder);
+		this.get('controller').send('changeSortOrder', field, nextSortOrder);
 	}
 });
 

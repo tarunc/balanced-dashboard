@@ -24,6 +24,10 @@ Balanced.ActivityController = Balanced.ObjectController.extend(Balanced.ResultsT
 
 	actions: {
 		changeTypeFilter: function(type) {
+			Balanced.Analytics.trackEvent('Activity-Table-Filter', {
+				type: type
+			});
+
 			this.set('type', type);
 			if (type === 'search' || _.contains(Balanced.SEARCH.TRANSACTION_TYPES, type)) {
 				this.transitionToRoute('activity.transactions');

@@ -1,11 +1,11 @@
 <thead>
 	<tr>
-		{{#view Balanced.ResultsSortableColumnHeaderView classBinding=":span3 :label6a :initiated :date view.hideDateSort::sortable" field="initiated_at"}}Date Initiated{{/view}}
-		{{#view Balanced.ResultsSortableColumnHeaderView classBinding=":span3 :label6a :respond-by :date view.hideDateSort::sortable" field="respond_by"}}Respond By{{/view}}
+		{{#view Balanced.ResultsSortableColumnHeaderView classBinding=":span3 :label6a :initiated :date view.hideDateSort::sortable" table="Disputes-Table" field="initiated_at"}}Date Initiated{{/view}}
+		{{#view Balanced.ResultsSortableColumnHeaderView classBinding=":span3 :label6a :respond-by :date view.hideDateSort::sortable" field="respond_by" table="Disputes-Table"}}Respond By{{/view}}
 		<th class="span4 label6a status">Status</th>
 		<th class="span3 label6a account">Customer</th>
 		<th class="span4 label6a funding-instrument">Card or Bank Account</th>
-		{{#view Balanced.ResultsSortableColumnHeaderView class="span2 label6a amount sortable num" field="amount"}}Amount{{/view}}
+		{{#view Balanced.ResultsSortableColumnHeaderView class="span2 label6a amount sortable num" field="amount" table="Disputes-Table"}}Amount{{/view}}
 	</tr>
 </thead>
 
@@ -18,7 +18,7 @@
 						<span class="loader loading"></span>
 					</div>
 				{{else}}
-					<a {{action "loadMore" view.disputes}}>Load more</a>
+					<a data-evt="Disputes-Table-Load-More" {{action "loadMore" view.disputes}}>Load more</a>
 				{{/if}}
 			</td>
 		</tr>
