@@ -1,8 +1,24 @@
 Balanced.Route = Ember.Route.extend({
+	emit: function(name, data, fromWhere) {
+		if (!fromWhere) {
+			fromWhere = this.constructor.toString();
+		}
 
+		Balanced.trigger('event', {
+			name: name,
+			from: fromWhere,
+			data: data
+		});
+	},
+
+	actions: {
+		emit: function(name, data, fromWhere) {
+			this.emit(name, data, fromWhere);
+		}
+	}
 });
 
-Balanced.Router = Ember.Router.extend({
+Balanced.Router = Ember.Router.extend(Ember.Evented, {
 	/*
 	 * This function update page title when a transition is made
 	 */

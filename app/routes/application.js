@@ -101,6 +101,8 @@ Balanced.ApplicationRoute = Balanced.Route.extend({
 		willTransition: function() {
 			this.controllerFor('search').send('closeSearch');
 			this.controllerFor('application').alertTransition();
+
+			return true;
 		},
 
 		alert: function(options) {

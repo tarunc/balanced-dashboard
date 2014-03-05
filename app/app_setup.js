@@ -21,7 +21,7 @@ window.setupBalanced = function(divSelector) {
 	// ENV.RAISE_ON_DEPRECATION = true;
 	// Ember.LOG_STACKTRACE_ON_DEPRECATION = true;
 
-	window.Balanced = Ember.Application.create({
+	window.Balanced = Ember.Application.extend(Ember.Evented).create({
 		rootElement: divSelector,
 
 		// Basic logging, e.g. "Transitioned into 'post'"

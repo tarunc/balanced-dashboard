@@ -20,7 +20,7 @@ Balanced.Analytics = (function() {
 		} catch (err) {}
 	}
 
-	return {
+	var analytics = {
 		init: function(settings) {
 			if (window.TESTING || !window.mixpanel.init) {
 				return;
@@ -68,6 +68,10 @@ Balanced.Analytics = (function() {
 
 				Balanced.Analytics.trackClick(tt);
 			});
+
+			Balanced.__container__.lookup('router:main').on('event', function(data) {
+				console.log('analytics', data);
+			});
 		},
 		trackClick: function(name, data) {
 			data = data || {};
@@ -109,4 +113,5 @@ Balanced.Analytics = (function() {
 		}
 	};
 
+	return analytics;
 })();
