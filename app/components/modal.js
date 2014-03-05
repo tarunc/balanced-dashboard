@@ -33,6 +33,7 @@ Balanced.ModalComponent = Ember.Component.extend({
 
 		close: function() {
 			var modalElement = this.get('modalElement');
+			Balanced.Analytics.trackEvent(this.get('name') + '-Close');
 			this.$(modalElement).modal("hide");
 		},
 

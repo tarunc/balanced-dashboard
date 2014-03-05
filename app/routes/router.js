@@ -1,4 +1,6 @@
-Balanced.Route = Ember.Route.extend({});
+Balanced.Route = Ember.Route.extend({
+
+});
 
 Balanced.Router = Ember.Router.extend({
 	/*
