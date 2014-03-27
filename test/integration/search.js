@@ -59,22 +59,48 @@ test('search "%" returns 4 transactions total, showing 2 transactions in results
 			Testing.runSearch('%');
 		})
 		.then(function() {
-			//assert.equal($('#search .results li.transactions > a:contains("4")').length, 1, 'has 4 transactions in header');
+			assert.equal($('#search .results li.transactions > a:contains("4")').length, 1, 'has 4 transactions in header');
 			assert.equal($('#search .results table.transactions tbody tr').length, 2, 'has 2 transactions');
 			assert.equal($('#search .results table.transactions tfoot td').length, 1, 'has "load more"');
+
+			// Manually check the transactions uri is correct
+			var controller = Balanced.__container__.lookup('controller:search');
+			var resultsUri = controller.get('results_uri');
+			assert.ok(controller.get('results_base_uri').indexOf('/search') >= 0, 'Search Transactions URI is correct');
+			assert.ok(resultsUri.indexOf('card_hold') >= 0, 'Search URI filter by type is correct');
+		})
+		.click('#search .results li.transactions ul.dropdown-menu li a:contains(Holds)')
+		.then(function() {
+			// Manually check the transactions uri is correct
+			var controller = Balanced.__container__.lookup('controller:search');
+			var resultsUri = controller.get('results_uri');
+			assert.ok(controller.get('results_base_uri').indexOf('/search') >= 0, 'Search Transactions URI is correct');
+			assert.ok(resultsUri.indexOf('type=card_hold') > 0, 'Search Transactions Type is correct');
+
+			// Check if it filters
+			assert.equal($('#search .results table.transactions tr td.no-results').length, 1, 'has "no results"');
+
+			// Check header labels
+			assert.equal($('#search .results li.transactions').text().indexOf('Holds') >= 0, 1, 'has correct text');
+			assert.equal($('#search .results li.transactions').text().indexOf('0') >= 0, 1, 'has correct text');
+
+			// Check if we dont have status type
+			assert.equal($('#search .results table.transactions th.status .status-filter').length, 0, 'can not filter by status');
 		});
 });
 
-test('search "%", click accounts, returns 1 accounts total, showing 1 account in results, with no load more', function(assert) {
+test('search "%", click customers, returns 1 customer total, showing 1 customer in results, with no load more', function(assert) {
 	visit(Testing.MARKETPLACE_ROUTE)
 		.then(function() {
 			Testing.runSearch('%');
 		})
-		.click('#search .results li.accounts > a')
 		.then(function() {
-			//assert.equal($('#search .results li.accounts > a:contains("1")').length, 1, 'has 1 account in header');
-			assert.equal($('#search .results table.accounts tbody tr').length, 1, 'has 1 account');
-			assert.equal($('#search .results table.accounts tfoot td').length, 0, 'no "load more"');
+			assert.equal($('#search .results li.customers > a:contains("1")').length, 1, 'has 1 customer in header');
+		})
+		.click('#search .results li.customers > a')
+		.then(function() {
+			assert.equal($('#search .results table.customers tbody tr').length, 1, 'has 1 customer');
+			assert.equal($('#search .results table.customers tfoot td').length, 0, 'no "load more"');
 		});
 });
 
@@ -128,13 +154,12 @@ test('search date picker dropdown', function(assert) {
 });
 
 test('search click result', function(assert) {
-	visit(Testing.MARKETPLACE_ROUTE).then(function() {
-		Testing.runSearch('%');
-	})
+	visit(Testing.MARKETPLACE_ROUTE)
 		.then(function() {
-			click('#search .results .accounts a');
-			click($('#search .results table.items tbody tr a').first());
+			Testing.runSearch('%');
 		})
+		.click('#search .results .customers a:first')
+		.click('#search .results table.items tbody tr a:first')
 		.then(function() {
 			assert.equal($('#content h1').text().trim(), 'Customer', 'transition to customer page');
 			assert.equal($('#search .results').css('display'), 'none', 'search result should be hidden');

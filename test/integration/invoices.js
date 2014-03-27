@@ -1,7 +1,6 @@
 module('Invoices', {
 	setup: function() {
-		Testing.setupFixtures();
-		Testing.fixtureLogin();
+		Testing.useFixtureData();
 	},
 	teardown: function() {}
 });
@@ -29,6 +28,7 @@ test('invoice detail page', function(assert) {
 		".hold-details-row td:eq(3)": "$0.00 per hold",
 		".card-debit-details-row .total": "$2.45",
 		".card-debit-details-row td:eq(3)": "3.5% of txn amount + 29 cents",
+		".chargeback-details-row td:eq(1)": "1",
 		".bank-account-debit-details-row .total": "$0.00",
 		".succeeded-credit-details-row .total": "$0.00",
 		".failed-credit-details-row .total": "$0.00",
@@ -43,32 +43,34 @@ test('invoice detail page', function(assert) {
 			_.each(expectedValues, function(value, selector) {
 				assert.equal($(selector).text().trim(), value);
 			});
-
-			assert.ok(spy.calledWith(Balanced.Invoice, invoiceUri));
 		})
 		.click('.activity .results header li.debit-cards a')
-		.then(function() {
-			assert.ok(spy.calledWith(Balanced.Debit, invoiceUri + '/card_debits'));
-		})
 		.click('.activity .results header li.holds a')
-		.then(function() {
-			assert.ok(spy.calledWith(Balanced.Hold, invoiceUri + '/holds'));
-		})
 		.click('.activity .results header li.debit-bank-accounts a')
-		.then(function() {
-			assert.ok(spy.calledWith(Balanced.Debit, invoiceUri + '/bank_account_debits'));
-		})
 		.click('.activity .results header li.credits a')
-		.then(function() {
-			assert.ok(spy.calledWith(Balanced.Credit, invoiceUri + '/credits'));
-		})
+		.click('.activity .results header li.failed-credits a')
 		.click('.activity .results header li.refunds a')
-		.then(function() {
-			assert.ok(spy.calledWith(Balanced.Refund, invoiceUri + '/refunds'));
-		})
+		.click('.activity .results header li.reversals a')
 		.click('.activity .results header li.disputes a')
 		.then(function() {
-			assert.ok(spy.calledWith(Balanced.Dispute, invoiceUri + '/disputes'));
+			var expectations = [
+				[Balanced.Hold, "/holds"],
+				[Balanced.Debit, '/card_debits'],
+				[Balanced.Debit, '/bank_account_debits'],
+				[Balanced.Credit, '/credits'],
+				[Balanced.Credit, '/failed_credits'],
+				[Balanced.Refund, '/refunds'],
+				[Balanced.Reversal, '/reversals'],
+				[Balanced.Dispute, '/disputes']
+			];
+
+			assert.ok(spy.getCall(1).calledWith(Balanced.Invoice, invoiceUri), "Load invoices index");
+
+			expectations.forEach(function(expectation, i) {
+				var model = expectation[0];
+				var uri = invoiceUri + expectation[1];
+				assert.ok(spy.getCall(i + 3).calledWith(model, uri));
+			});
 		});
 });
 

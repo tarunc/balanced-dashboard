@@ -35,11 +35,64 @@ test('Click load more shows 2 more and hides load more', function(assert) {
 	visit(Testing.ACTIVITY_ROUTE)
 		.then(function() {
 			assert.equal($('#activity .results table.transactions tfoot td').length, 1, 'has "load more"');
+
+			// Manually check the transactions uri is correct
+			var activityController = Balanced.__container__.lookup('controller:activity');
+			var results_uri = activityController.get('results_uri');
+			assert.ok(activityController.get('results_base_uri').indexOf('/transactions') >= 0, 'Activity Transactions URI is correct');
+			assert.ok(results_uri.indexOf('sort=created_at') > 0, 'Activity Transactions Sort is correct');
+			assert.ok(results_uri.indexOf('card_hold') < 0, 'Activity URI filter by type is correct');
+			assert.ok(results_uri.indexOf('status%5Bin%5D=failed%2Csucceeded%2Cpending') >= 0, 'Activity URI filter by status is correct');
 		})
 		.click('#activity .results table.transactions tfoot td.load-more-results a')
 		.then(function() {
 			assert.equal($('#activity .results table.transactions tbody tr').length, 4, 'has 4 transactions');
 			assert.equal($('#activity .results table.transactions tfoot td').length, 0, 'does not have "load more"');
+		});
+});
+
+test('Filter Activity transactions table by type & status', function(assert) {
+	visit(Testing.ACTIVITY_ROUTE)
+		.click('#activity .results table.transactions th.type .type-filter li a:contains(Holds)')
+		.then(function() {
+			// Manually check the transactions uri is correct
+			var activityController = Balanced.__container__.lookup('controller:activity');
+			var results_uri = activityController.get('results_uri');
+			assert.ok(activityController.get('results_base_uri').indexOf('/transactions') >= 0, 'Activity Transactions URI is correct');
+			assert.ok(results_uri.indexOf('sort=created_at') > 0, 'Activity Transactions Sort is correct');
+			assert.ok(results_uri.indexOf('type=hold') > 0, 'Activity Transactions Type is correct');
+			assert.ok(results_uri.indexOf('status%5Bin%5D=failed%2Csucceeded%2Cpending') >= 0, 'Activity URI filter by status is correct');
+
+			// Check if it filters
+			assert.equal($('#activity .results table.transactions tr td.no-results').length, 1, 'has "no results"');
+
+			// Check header labels
+			// Commenting out for now
+			// assert.equal($('#activity .results nav li.transactions').text().indexOf('Holds') >= 0, 1, 'has correct text');
+		})
+		.click('#activity .results table.transactions th.status .status-filter li a:contains(Succeeded)')
+		.then(function() {
+			var activityController = Balanced.__container__.lookup('controller:activity');
+			var results_uri = activityController.get('results_uri');
+			assert.ok(results_uri.indexOf('status=succeeded') >= 0, 'Activity URI filter by status is correct');
+			assert.ok(results_uri.indexOf('status%5Bin%5D=failed%2Csucceeded%2Cpending') < 0, 'Activity URI filter by status is correct');
+
+			// Check if it filters
+			assert.equal($('#activity .results table.transactions tr td.no-results').length, 1, 'has "no results"');
+
+			// Check header labels
+			// Commenting out for now
+			// assert.equal($('#activity .results nav li.transactions').text().indexOf('Succeeded') >= 0, 1, 'has correct text');
+		})
+		.click('#activity .results table.transactions th.type .type-filter li a:contains(Debits)')
+		.then(function() {
+			var activityController = Balanced.__container__.lookup('controller:activity');
+			var results_uri = activityController.get('results_uri');
+			assert.ok(results_uri.indexOf('type=debit') > 0, 'Activity Transactions Type is correct');
+			assert.ok(results_uri.indexOf('status=succeeded') >= 0, 'Activity URI filter by status is correct');
+
+			// Check if it filters
+			assert.equal($('#activity .results table.transactions tr td.no-results').length, 0, 'has no "no results"');
 		});
 });
 
@@ -122,7 +175,9 @@ test('withdraw funds', function(assert) {
 
 		Ember.run.next(function() {
 			Testing.start();
-			assert.equal($('.activity-escrow-box .amount .number1d').text().trim(), '$400.00', 'escrow amount is $400.00');
+
+			// Escrow balances are now cached
+			// assert.equal($('.activity-escrow-box .amount .number1d').text().trim(), '$400.00', 'escrow amount is $400.00');
 
 			// select the bank account
 			fundingInstrumentUri = $("#withdraw-funds select[name='destination_uri'] option").eq(0).val();

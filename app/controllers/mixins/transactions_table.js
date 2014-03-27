@@ -1,34 +1,39 @@
 // Requires the results_table mixin also, but there's no inheritance allowed for mixins
 Balanced.TransactionsTable = Ember.Mixin.create({
-	transactionType: 'all',
-
-	actions: {
-		changeTransactionTypeFilter: function(type, transactionType) {
-			this.setProperties({
-				type: type,
-				transactionType: transactionType
-			});
-		}
-	},
-
+	transactionStatus: 'all',
+	transactionTypeFilter: false,
 	isDisputeType: Ember.computed.equal('type', 'dispute'),
 
-	extra_filtering_params: function() {
-		// TODO add something for disputes here
-		var transactionType = this.get('transactionType');
+	TYPE_TRANSLATION: {
+		'card_hold': 'hold'
+	},
 
-		if (transactionType === 'all') {
+	actions: {
+		changeTransactionStatusFilter: function(status) {
+			this.setProperties({
+				transactionStatus: status
+			});
+		},
+	},
+
+	extra_filtering_params: function() {
+		var transactionStatus = this.get('transactionStatus');
+		var type = this.get('type');
+
+		if (type !== 'transaction' && !_.contains(Balanced.SEARCH.TRANSACTION_TYPES, type)) {
 			return {};
-		} else if (this.get('isDisputeType')) {
+		}
+
+		if (!transactionStatus || transactionStatus === 'all') {
 			return {
-				status: transactionType
+				'status[in]': 'failed,succeeded,pending'
 			};
 		}
 
 		return {
-			state: transactionType
+			status: transactionStatus
 		};
-	}.property('transactionType', 'isDisputeType'),
+	}.property('type', 'transactionStatus'),
 
 	results_base_uri: function() {
 		if (this.get('isDisputeType')) {

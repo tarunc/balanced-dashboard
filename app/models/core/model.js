@@ -21,11 +21,13 @@ Balanced.Model = Ember.Object.extend(Ember.Evented, Ember.Copyable, Balanced.Loa
 			(!this.get('validationErrors') || !_.keys(this.get('validationErrors')).length);
 	}.property('isValid', 'isError', 'validationErrors'),
 
+	id: Balanced.computed.orProperties('__json.id', '_id'),
+
 	// computes the ID from the URI - exists because at times Ember needs the
 	// ID of our model before it has finished loading. This gets overridden
 	// when the real model object gets loaded by the ID value from the JSON
 	// attribute
-	id: function() {
+	_id: function() {
 		var uri = this.get('uri');
 
 		if (uri) {
@@ -70,11 +72,11 @@ Balanced.Model = Ember.Object.extend(Ember.Evented, Ember.Copyable, Balanced.Loa
 		return this.get('uri');
 	},
 
-	delete: function() {
+	delete: function(settings) {
 		var self = this;
-		var settings = settings || {};
+		settings = settings || {};
 
-		self.setProperties({
+		this.setProperties({
 			isDeleted: true,
 			isSaving: true
 		});
@@ -367,7 +369,7 @@ Balanced.Model.reopenClass({
 			}
 		} else {
 			// HACK - once we fix the API response from the auth proxy, we should take out the if
-			if (objClass !== Balanced.UserMarketplace) {
+			if (objClass !== Balanced.UserMarketplace && objClass !== Balanced.UserInvite) {
 				Ember.Logger.warn("No _type field found on URI: " + json.uri);
 			}
 		}

@@ -118,6 +118,13 @@ module.exports = function(grunt) {
 					'test/integration/**/*.js'
 				],
 				dest: 'build/test/js/tests.js'
+			},
+			libtest: {
+				src: [
+					'static/javascripts/sinon/index.js',
+					'static/javascripts/qunit/qunit/qunit.js'
+				],
+				dest: 'build/test/js/test-runner.js'
 			}
 		},
 
@@ -287,11 +294,6 @@ module.exports = function(grunt) {
 					src: ['**'],
 					dest: 'build/test/'
 				}, {
-					cwd: 'test/support/lib/',
-					expand: true,
-					src: ['**'],
-					dest: 'build/test/js'
-				}, {
 					src: 'test/support/testconfig.js',
 					dest: 'build/test/js/testconfig.js'
 				}, {
@@ -300,6 +302,15 @@ module.exports = function(grunt) {
 				}, {
 					src: 'test/support/fixturebrowserconfig.js',
 					dest: 'build/test/js/fixturebrowserconfig.js'
+				}, {
+					src: 'static/javascripts/qunit/qunit/qunit.css',
+					dest: 'build/test/css/qunit.css'
+				}, {
+					src: 'static/javascripts/sinon/index.js',
+					dest: 'build/test/js/sinon.js'
+				}, {
+					src: 'test/support/lib/balanced.min.js',
+					dest: 'build/test/js/balanced.min.js'
 				}]
 			},
 			preUglify: {
@@ -510,35 +521,6 @@ module.exports = function(grunt) {
 		karma: {
 			unit: {
 				configFile: 'karma.conf.js',
-			},
-			options: {
-				port: 9877,
-				files: (function() {
-					var file = grunt.option("file");
-					var files = [
-						'build/css/base.min.css',
-						'build/test/js/sinon.js',
-						'build/test/js/testenv.js',
-						'build/js/lib-dev.js',
-						'test/support/lib/balanced.min.js',
-						'build/js/dashboard-dev.js',
-						'build/test/js/test-fixtures.js',
-						'test/support/testconfig.js',
-						'test/lib/*.js',
-					];
-
-					if (file) {
-						file = file.split(',');
-						file.forEach(function(val) {
-							files.push(val);
-						});
-					} else {
-						files.push('test/unit/**/*');
-						files.push('test/integration/**/*');
-					}
-
-					return files;
-				})()
 			}
 		},
 
@@ -719,7 +701,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('_buildJS', ['emberTemplates', '_buildJSAfterTemplates']);
 	grunt.registerTask('_buildJSAfterTemplates', ['bower:install', 'neuter:dev', 'neuter:prod', 'concat:dashboarddev', 'concat:dashboardprod', 'concat:libdev', 'concat:libprod']);
-	grunt.registerTask('_buildTests', ['neuter:testfixtures', 'concat:tests', 'copy:test']);
+	grunt.registerTask('_buildTests', ['neuter:testfixtures', 'concat:libtest', 'concat:tests', 'copy:test']);
 	grunt.registerTask('_buildCSS', ['less']);
 	grunt.registerTask('_buildImages', ['copy:images']);
 	grunt.registerTask('_buildFonts', ['copy:fonts']);

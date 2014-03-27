@@ -1,4 +1,3 @@
-@import "/static/less/grid.less";
 @import "/static/less/bootstrap.less";
 @import "/static/javascripts/strapped/static/less/strapped.less";
 /*
@@ -8,10 +7,6 @@
 *
 * Styles for individual components/pages should go in their own file.
 */
-
-html {
-
-}
 
 body {
   &.light-bg {
@@ -25,29 +20,27 @@ body {
   }
 }
 
+// Need to override the bootstrap default
+.container {
+  min-width: @mainWidth !important;
+  width: 100% !important;
+  // Support full max-width on Apple Cinema Displays
+  max-width: 2560px !important;
+
+  &.scale {
+    min-width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
 #main-overlay {
+  background-color: @modalBodyBackgroundColor;
+  bottom: -61px;
   display: none;
   position: absolute;
-  top: @searchBarHeight;
-  background-color: @modalBodyBackgroundColor;
-
-  /* Not a fan of doing this, but width 100% does not work because of the right margin */
-  width: @mainWidth;
-
-  height: 100%;
-  min-height: 100%;
+  top: 0;
+  width: 100%;
   z-index: 10;
-  margin: auto;
-}
-
-footer {
-
-}
-
-h1 {
-  &.page-title {
-    width: @pageTitleWidth;
-  }
 }
 
 ul, li {
@@ -64,12 +57,6 @@ input:focus, select:focus, textarea:focus, a:focus {
 
 .empty-field-label {
   font-style: italic;
-}
-
-hr {
-  &.seperation-line {
-    border-top: 2px solid #E4E4E0;
-  }
 }
 
 table {
@@ -164,6 +151,7 @@ dl, dt, dd {
 @import "/static/less/forms.less";
 @import "/static/less/dropdowns.less";
 @import "/static/less/modals.less";
+@import "/static/less/components.less";
 @import "/static/less/progress_bar.less";
 @import "/static/less/popovers.less";
 @import "/static/less/search.less";

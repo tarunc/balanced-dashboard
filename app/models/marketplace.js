@@ -20,23 +20,18 @@ Balanced.Marketplace = Balanced.UserMarketplace.extend({
 
 	customers: Balanced.Model.hasMany('customers', 'Balanced.Customer'),
 
-	funding_instruments_uri: function() {
-		return this.get('uri') + '/search?limit=10&offset=0&q=&type[in]=bank_account,card';
-	}.property('uri'),
+	funding_instruments_uri: Balanced.computed.concat('uri', '/search?limit=10&offset=0&q=&type[in]=bank_account,card'),
 
 	// TODO - take this out once marketplace has a link to invoices list
-	invoices_uri: function() {
-		return '/invoices';
-	}.property('uri'),
-
-	disputes_uri: function() {
-		return '/disputes';
-	}.property('uri'),
+	users_uri: function() {
+		return '/marketplaces/%@/users'.fmt(this.get('id'));
+	}.property('id'),
+	invoices_uri: '/invoices',
+	disputes_uri: '/disputes',
 
 	populateWithTestTransactions: function() {
 		//  pre-populate marketplace with transactions
-		var uri = this.get('uri');
-		var id = uri.substr(uri.lastIndexOf('/') + 1);
+		var id = this.get('id');
 		Balanced.NET.ajax({
 			url: ENV.BALANCED.AUTH + '/marketplaces/%@/spam'.fmt(id),
 			type: 'PUT'

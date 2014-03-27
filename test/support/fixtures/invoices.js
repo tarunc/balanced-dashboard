@@ -1272,6 +1272,7 @@ Balanced.Adapter.addFixtures([{
 		"refunds_total_fee": -245,
 		"refunds_uri": "/invoices/IVDOATjeyAPTJMJPnBR83uE/refunds",
 		"reversals_count": 0,
+		"disputes_count": 1,
 		"reversals_total_amount": 0,
 		"reversals_total_fee": 0,
 		"reversals_uri": "/invoices/IVDOATjeyAPTJMJPnBR83uE/reversals",
@@ -1305,6 +1306,8 @@ Balanced.Adapter.addFixtures([{
 }, {
 	"uri": "/invoices/IVDOATjeyAPTJMJPnBR83uE/credits"
 }, {
+	"uri": "/invoices/IVDOATjeyAPTJMJPnBR83uE/failed_credits"
+}, {
 	"uri": "/invoices/IVDOATjeyAPTJMJPnBR83uE/refunds"
 }, {
 	"uri": "/invoices/IVDOATjeyAPTJMJPnBR83uE/card_debits"
@@ -1312,4 +1315,6 @@ Balanced.Adapter.addFixtures([{
 	"uri": "/invoices/IVDOATjeyAPTJMJPnBR83uE/bank_account_debits"
 }, {
 	"uri": "/invoices/IVDOATjeyAPTJMJPnBR83uE/disputes"
+}, {
+	"uri": "/invoices/IVDOATjeyAPTJMJPnBR83uE/reversals"
 }]);

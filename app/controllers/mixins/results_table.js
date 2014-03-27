@@ -3,6 +3,9 @@ Balanced.ResultsTable = Ember.Mixin.create({
 
 	type: 'transaction',
 
+	// override this if you dont want transaction type filter to appear
+	transactionTypeFilter: true,
+
 	minDate: null,
 	maxDate: null,
 	dateFilterTitle: 'Any time',
@@ -25,6 +28,11 @@ Balanced.ResultsTable = Ember.Mixin.create({
 	// override this if you conditionally don't want to get results
 	fetch_results: true,
 
+	// override this if you want to translate this
+	TYPE_TRANSLATION: {
+		'hold': 'card_hold'
+	},
+
 	actions: {
 		changeDateFilter: function(minDate, maxDate, title) {
 			this.setProperties({
@@ -42,6 +50,10 @@ Balanced.ResultsTable = Ember.Mixin.create({
 		},
 
 		changeTypeFilter: function(type) {
+			if (this.TYPE_TRANSLATION[type]) {
+				type = this.TYPE_TRANSLATION[type];
+			}
+
 			this.set('type', type);
 		},
 
@@ -64,10 +76,11 @@ Balanced.ResultsTable = Ember.Mixin.create({
 			this.get('results_type')
 		);
 
-		if (['funding_instrument', 'customer', 'transaction', 'search'].indexOf(this.get('type') || '') >= 0) {
+		var type = this.get('type') || '';
+		if (['funding_instrument', 'customer', 'transaction', 'search'].indexOf(type) >= 0) {
 			searchArray.set('sortProperties', [this.get('sortField') || 'created_at']);
 			searchArray.set('sortAscending', this.get('sortOrder') === 'asc');
-		} else if (this.get('type') === 'dispute') {
+		} else if (type === 'dispute') {
 			searchArray.set('sortProperties', [this.get('sortField') || 'initiated_at']);
 			searchArray.set('sortAscending', this.get('sortOrder') === 'asc');
 		}
@@ -111,41 +124,41 @@ Balanced.ResultsTable = Ember.Mixin.create({
 	}.property('type', 'minDate', 'maxDate', 'sortField', 'sortOrder', 'limit', 'extra_filtering_params'),
 
 	results_type: function() {
-		switch (this.get('type')) {
-			case 'transaction':
-				return 'Balanced.Transaction';
-			case 'search':
-				return 'Balanced.Transaction';
-			case 'debit':
-				return 'Balanced.Debit';
-			case 'credit':
-				return 'Balanced.Credit';
-			case 'card_hold':
-				return 'Balanced.Hold';
-			case 'hold':
-				return 'Balanced.Hold';
-			case 'refund':
-				return 'Balanced.Refund';
-			case 'account':
-				return 'Balanced.Account';
-			case 'customer':
-				return 'Balanced.Customer';
-			case 'funding_instrument':
-				return 'Balanced.FundingInstrument';
-			case 'bank_account':
-				return 'Balanced.BankAccount';
-			case 'card':
-				return 'Balanced.Card';
-			case 'log':
-				return 'Balanced.Log';
-			case 'order':
-				return 'Balanced.Order';
-			case 'dispute':
-				return 'Balanced.Dispute';
-			default:
-				return null;
-		}
+		var typeMappings = {
+			transaction: 'Balanced.Transaction',
+			'search': 'Balanced.Transaction',
+			debit: 'Balanced.Debit',
+			credit: 'Balanced.Credit',
+			failed_credit: 'Balanced.Credit',
+			card_hold: 'Balanced.Hold',
+			hold: 'Balanced.Hold',
+			refund: 'Balanced.Refund',
+			account: 'Balanced.Account',
+			customer: 'Balanced.Customer',
+			funding_instrument: 'Balanced.FundingInstrument',
+			bank_account: 'Balanced.BankAccount',
+			card: 'Balanced.Card',
+			log: 'Balanced.log',
+			order: 'Balanced.Order',
+			dispute: 'Balanced.Dispute',
+			reversal: 'Balanced.Reversal'
+		};
+
+		return typeMappings[this.get('type')] || null;
 	}.property('type'),
+
+	isLoaded: Ember.computed.not('isLoading'),
+
+	isLoading: function() {
+		return this.get('fetch_results') && this.get('results') && !this.get('results.isLoaded');
+	}.property('fetch_results', 'results.isLoaded', 'results'),
+
+	updateResultsIfErrored: function() {
+		var results = this.get('results');
+		if (results && results.get('isError') && this.get('fetch_results')) {
+			this.set('fetch_results', false);
+		}
+	}.observes('results', 'results.isError'),
 
 	// used for when filtering to one specific type. for example: if the user
 	// is viewing holds, type==hold category==transaction
@@ -157,6 +170,10 @@ Balanced.ResultsTable = Ember.Mixin.create({
 
 		if (_.contains(Balanced.SEARCH.SEARCH_TYPES, type)) {
 			return 'search';
+		}
+
+		if (_.contains(Balanced.SEARCH.TRANSACTION_TYPES, type)) {
+			return 'transaction';
 		}
 
 		if (_.contains(Balanced.SEARCH.FUNDING_INSTRUMENT_TYPES, type)) {

@@ -7,7 +7,7 @@ module('Disputes', {
 
 		// Pause tests for 2000ms for disputes
 		// to be fully created
-		Testing.pause(2000);
+		Testing.pause(5000);
 	},
 	teardown: function() {}
 });
@@ -30,8 +30,11 @@ test('exist on the activity page', function(assert) {
 			// Manually check the disputes uri is correct
 			var activityController = Balanced.__container__.lookup('controller:activity');
 			assert.equal(activityController.get('results_base_uri'), '/disputes', 'Disputes URI is correct');
-			assert.ok(activityController.get('results_uri').indexOf('sort=created_at') > 0, 'Disputes Sort is correct');
+			assert.ok(activityController.get('results_uri').indexOf('sort=initiated_at') > 0, 'Disputes Sort is correct');
 		})
+		.waitFor(function() {
+			return $('table.disputes tfoot td:eq(0)').length >= 1;
+		}, 'has "Load More" disputes')
 		.checkElements(activityDisputesPage, assert)
 		.click('table.disputes tfoot td.load-more-results a')
 		.then(function() {
@@ -44,8 +47,8 @@ test('can visit page', function(assert) {
 		'#content h1': 'Dispute',
 		'#dispute > .main-header .title': 1, // 'Brand New Electric Guitar Rosewood Fingerboard Sunset Red',
 		'#dispute .customer-info .main-header .title': 1, // 'William Henry Cavendish III (whc@example.org)',
-		'#dispute .transaction-details .dispute .transaction-type-subheader .title': 'Pending: $100.00',
-		'#dispute .transaction-details .debit .transaction-type-subheader .title': 1 // 'Succeeded: $13.30'
+		'#dispute .transaction-details .dispute .tt-title': 'Pending: $100.00',
+		'#dispute .transaction-details .debit .tt-title': 1 // 'Succeeded: $13.30'
 	};
 
 	visit(Testing.DISPUTE_ROUTE)

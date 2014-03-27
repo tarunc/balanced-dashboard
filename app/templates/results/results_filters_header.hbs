@@ -4,23 +4,10 @@
 	</li>
 
 	<li {{bind-attr class=":transactions :filter view.transactionsTabSelected:selected"}} >
-		<a href="#" {{action "changeTypeFilter" "search"}}>{{view.transaction_type_label}} </a>
-		<div class="selector dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-			<ul class="dropdown-menu transaction-filter filter-choices">
-				<li><a href="#" {{action "changeTypeFilter" "search"}} {{bind-attr label="view.totalTransactionsHeader"}}>All</a></li>
-				<li><a href="#" {{action "changeTypeFilter" "card_hold"}}> Holds </a></li>
-
-				<li><a href="#" {{action "changeTypeFilter" "debit"}}> Debits </a></li>
-
-				<li><a href="#" {{action "changeTypeFilter" "credit"}}> Credits </a></li>
-
-				<li><a href="#" {{action "changeTypeFilter" "refund"}}> Refunds </a></li>
-			</ul>
-		</div>
+		<a href="#" {{action "changeTypeFilter" "transaction"}}> Transactions </a>
 	</li>
 
-	<li {{bind-attr class=":accounts view.customersTabSelected:selected"}} >
+	<li {{bind-attr class=":customers view.customersTabSelected:selected"}} >
 		<a href="#" {{action "changeTypeFilter" "customer"}}> Customers </a>
 	</li>
 
@@ -30,7 +17,7 @@
 		<div class="selector dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
 			<ul class="dropdown-menu funding-instruments-filter filter-choices">
-				<li><a href="#" {{action "changeTypeFilter" "funding_instrument"}} {{bind-attr label="view.totalFundingInstrumentsHeader"}}> Both </a></li>
+				<li><a href="#" {{action "changeTypeFilter" "funding_instrument"}}> Both </a></li>
 
 				<li><a href="#" {{action "changeTypeFilter" "card"}}> Cards </a></li>
 
@@ -38,10 +25,13 @@
 			</ul>
 		</div>
 	</li>
-	<li {{bind-attr class=":funding-instruments :filter view.disputesTabSelected:selected"}} >
-		<a href="#" {{action "changeTypeFilter" "dispute"}}> {{view.dispute_type_label}} </a>
-	</li>
-	<li class="timing dropdown label4a">
+	{{#if view.isActivity}}
+		<li {{bind-attr class=":funding-instruments :filter view.disputesTabSelected:selected"}} >
+			<a href="#" {{action "changeTypeFilter" "dispute"}}> {{view.dispute_type_label}} </a>
+		</li>
+	{{/if}}
+
+	<li class="timing dropdown action label4a">
 		{{view Balanced.DatePickerView viewName="dateTimePicker"}}
 	</li>
 

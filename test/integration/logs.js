@@ -46,9 +46,11 @@ test('can visit page', function(assert) {
 test('has logs in table', function(assert) {
 	visit(Testing.LOGS_ROUTE)
 		.click('#marketplace-nav i.icon-logs')
+		.waitFor(function() {
+			return $('table.logs tfoot td').length >= 1;
+		}, 'has "load more"')
 		.then(function() {
 			assert.equal($('table.logs tbody tr').length, 2, 'has 2 logs');
-			assert.equal($('table.logs tfoot td').length, 1, 'has "load more"');
 		})
 		.click('table.logs tfoot tr a')
 		.then(function() {
@@ -62,11 +64,13 @@ test('filter logs by endpoint bank accounts', function(assert) {
 
 	visit(Testing.LOGS_ROUTE)
 		.click('#marketplace-nav i.icon-logs')
+		.waitFor(function() {
+			return $('table.logs tfoot td').length >= 1;
+		}, 'has "load more"')
 		.then(function() {
 			assert.equal($('table.logs tbody tr').length, 2, 'has 2 logs');
-			assert.equal($('table.logs tfoot td').length, 1, 'has "load more"');
 		})
-		.click('.results li.filter-endpoints ul li.bank_accounts a')
+		.click('.results li.filter-endpoints ul a.bank_accounts')
 		.then(function() {
 			assert.ok(spy.calledWith(Balanced.Log, '/logs?limit=2&method%5Bin%5D=post%2Cput%2Cdelete&offset=0&q=&sort=created_at%2Cdesc'));
 			assert.equal($('table.logs tbody tr').length, 1, 'has 1 log');
@@ -78,9 +82,11 @@ test('filter logs by request failed only', function(assert) {
 
 	visit(Testing.LOGS_ROUTE)
 		.click('#marketplace-nav i.icon-logs')
+		.waitFor(function() {
+			return $('table.logs tfoot td').length >= 1;
+		}, 'has "load more"')
 		.then(function() {
 			assert.equal($('table.logs tbody tr').length, 2, 'has 2 logs');
-			assert.equal($('table.logs tfoot td').length, 1, 'has "load more"');
 		})
 		.click('.results .filter-status-rollup label.succeeded input[type="checkbox"]')
 		.then(function() {
@@ -101,6 +107,6 @@ test('view a particular log entry', function(assert) {
 		.click('table.logs tbody tr:first-of-type a')
 		.then(function() {
 			assert.equal($('h1.page-title').text(), 'POST /customers/' + Testing.CUSTOMER_ID + '/debits', 'h1 title is correct');
-			assert.equal($('#log-request-id').text().length, 35, 'Log request id valid');
+			assert.equal($('dd[data-property="request-id"]').text().length, 35, 'Log request id valid');
 		});
 });

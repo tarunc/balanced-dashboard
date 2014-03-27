@@ -113,7 +113,6 @@ body .modal-backdrop.fade.in {
     margin-right: -35px;
     padding-left: 35px;
     padding-right: 35px;
-    //min-height: 55px;
   }
 
   .row-borders {
@@ -140,13 +139,20 @@ body .modal-backdrop.fade.in {
     &.no-bottom-content {
       padding-bottom: 0;
     }
+    input {
+      &.half {
+        width: 155px;
+
+        &.pull-right {
+          margin-right: -2px;
+        }
+      }
+    }
   }
   .modal-content-error {
-    padding: 0 35px 0 35px;
-
-    .alert {
-      margin-bottom: 0;
-    }
+    padding: 8px 35px;
+    background-color: @imperialRed20;
+    margin-bottom: 0;
   }
 
   .optional-modal-fields:not(.open) {

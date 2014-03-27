@@ -1,3 +1,9 @@
+var Computed = {
+	isCategory: function(category) {
+		return Ember.computed.equal('category', category);
+	}
+};
+
 Balanced.SearchController = Balanced.ObjectController.extend(
 	Balanced.ResultsTable, {
 		needs: ['application', 'marketplace'],
@@ -12,6 +18,8 @@ Balanced.SearchController = Balanced.ObjectController.extend(
 
 		baseClassSelector: '#search',
 
+		transactionTypeFilter: false,
+
 		init: function() {
 			this._super();
 
@@ -22,8 +30,8 @@ Balanced.SearchController = Balanced.ObjectController.extend(
 				if (!self.get('isDestroyed')) {
 					self.runQuery();
 				}
-			}, Balanced.THROTTLE);
-			this.addObserver('search', Balanced.THROTTLE > 0 ? debouncedQuery : _.bind(this.runQuery, this));
+			}, Balanced.THROTTLE.SEARCH);
+			this.addObserver('search', Balanced.THROTTLE.SEARCH > 0 ? debouncedQuery : _.bind(this.runQuery, this));
 		},
 
 		actions: {
@@ -53,12 +61,19 @@ Balanced.SearchController = Balanced.ObjectController.extend(
 
 				this.set('debounced_search', this.get('search'));
 				this.set('showResults', true);
-			},
+			}
 		},
 
 		fetch_results: function() {
 			return this.get('debounced_search') && this.get('debounced_search').length > 0;
 		}.property('debounced_search'),
+
+		updateResultsIfErrored: function() {
+			var results = this.get('results');
+			if (results && results.get('isError') && this.get('fetch_results')) {
+				this.set('debounced_search', '');
+			}
+		}.observes('results', 'results.isError'),
 
 		extra_filtering_params: function() {
 			var query = this.get('debounced_search');
@@ -72,6 +87,7 @@ Balanced.SearchController = Balanced.ObjectController.extend(
 			if (query === '%') {
 				query = '';
 			}
+
 			return {
 				query: query
 			};
@@ -95,10 +111,6 @@ Balanced.SearchController = Balanced.ObjectController.extend(
 			});
 		},
 
-		isLoading: function() {
-			return this.get('fetch_results') && this.get('results') && !this.get('results.isLoaded');
-		}.property('results.isLoaded'),
-
 		displayResults: function() {
 			return this.get('fetch_results') && this.get('showResults');
 		}.property('fetch_results', 'showResults'),
@@ -114,24 +126,10 @@ Balanced.SearchController = Balanced.ObjectController.extend(
 		},
 
 		// UI properties
-		ordersTabSelected: function() {
-			return this.get('category') === "order";
-		}.property('category'),
-
-		transactionsTabSelected: function() {
-			return this.get('category') === "search";
-		}.property('category'),
-
-		customersTabSelected: function() {
-			return this.get('category') === "customer";
-		}.property('category'),
-
-		fundingInstrumentsTabSelected: function() {
-			return this.get('category') === "funding_instrument";
-		}.property('category'),
-
-		disputesTabSelected: function() {
-			return this.get('category') === "dispute";
-		}.property('category')
+		ordersTabSelected: Computed.isCategory('order'),
+		transactionsTabSelected: Computed.isCategory('search'),
+		customersTabSelected: Computed.isCategory('customer'),
+		fundingInstrumentsTabSelected: Computed.isCategory('funding_instrument'),
+		disputesTabSelected: Computed.isCategory('dispute')
 	}
 );

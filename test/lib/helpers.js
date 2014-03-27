@@ -82,7 +82,7 @@ Balanced.Test.asyncHelpers = {
 					assert.ok($(selector).children().length > 0, selector + ' has children elements');
 				}
 			} else if (_.isNumber(val)) {
-				assert.equal($(selector).length, val, 'Element exists ' + selector);
+				assert.equal($(selector).length, val, 'Element exists ' + selector + ' ' + val + ' times');
 			} else if (_.isString(val)) {
 				assert.equal($(selector).text().trim(), val, 'Text for ' + selector);
 			}
@@ -112,6 +112,42 @@ Balanced.Test.asyncHelpers = {
 		}
 
 		return wait();
+	},
+	waitFor: function(app, cb, err, time) {
+		wait();
+
+		if (err && _.isNumber(err)) {
+			time = err;
+			err = null;
+		}
+
+		// Wait for up to 5 mins
+		time = time || 300000;
+
+		var startTime = new Date();
+		var runInterval = function() {
+			var elapsed = new Date() - startTime;
+			if (cb()) {
+				Testing.start();
+			} else if (elapsed >= time) {
+				// If an error message is included
+				// then something failed so throw an error
+				// otherwise, just start it
+				if (err) {
+					var error = new Error(err);
+					throw error;
+				} else {
+					Testing.start();
+				}
+			} else {
+				Ember.Logger.debug('Tests still waiting for... %@ ms passed out of %@ ms'.fmt(elapsed, time));
+				setTimeout(runInterval, 100);
+			}
+		};
+
+		setTimeout(runInterval, 0);
+		Ember.Logger.debug('Tests waiting for...');
+		return Testing.stop();
 	},
 	onUrl: function(app, route, assert) {
 		wait();
