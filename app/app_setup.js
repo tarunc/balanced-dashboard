@@ -1,7 +1,6 @@
 // This is pulled out into a separate file so the Grunt neuter task doesn't
 // add templating code to it while building
-
-window.balancedSetupFunctions = [];
+window.Balanced = {};
 
 /*
 Creates a new instance of an Ember application and
@@ -21,7 +20,7 @@ window.setupBalanced = function(divSelector) {
 	// ENV.RAISE_ON_DEPRECATION = true;
 	// Ember.LOG_STACKTRACE_ON_DEPRECATION = true;
 
-	window.Balanced = Ember.Application.create({
+	var Balanced = Ember.Application.create({
 		rootElement: divSelector,
 
 		// Basic logging, e.g. "Transitioned into 'post'"
@@ -49,11 +48,12 @@ window.setupBalanced = function(divSelector) {
 		}
 	});
 
+	window.Balanced = _.extend(Balanced, window.Balanced);;
+
 	if (!window.TESTING) {
 		// Defer the readiness until we know about login session
 		window.Balanced.deferReadiness();
 	}
-
 
 	window.Balanced.onLoad = function() {
 		//  initialize anything that needs to be done on application load
@@ -64,9 +64,9 @@ window.setupBalanced = function(divSelector) {
 	};
 
 	// Call the setup functions
-	_.each(window.balancedSetupFunctions, function(setupFunction) {
-		setupFunction();
-	});
+	// _.each(window.balancedSetupFunctions, function(setupFunction) {
+	// setupFunction();
+	// });
 
 	if (!window.TESTING) {
 		// Get the current login if logged in
@@ -84,6 +84,4 @@ window.setupBalanced = function(divSelector) {
 
 		window.Balanced.NET.loadCSRFTokenIfNotLoaded();
 	}
-
-	require('app/dashboard');
 };

@@ -16,16 +16,16 @@ module.exports = function(grunt) {
 			dev: {
 				options: {
 					// includeSourceURL: true,
-					template: "(function(window){ {%= src %} })(this);" // "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
+					template: "(function(){ {%= src %} })(this);" // "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
 				},
-				src: ['app/app_setup.js'],
+				src: ['app/dashboard.js'],
 				dest: 'build/js/includes-dev.js'
 			},
 			prod: {
 				options: {
-					template: "(function(window){ {%= src %} })(this);" // "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
+					template: "(function(){ {%= src %} })(this);" // "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
 				},
-				src: ['app/app_setup.js'],
+				src: ['app/dashboard.js'],
 				dest: 'build/js/includes-prod.js'
 			},
 			testfixtures: {
@@ -51,14 +51,14 @@ module.exports = function(grunt) {
 			},
 			dashboarddev: {
 				src: [
-					// 'app/app_setup.js',
+					'app/app_setup.js',
 					'build/js/includes-dev.js'
 				],
 				dest: 'build/js/dashboard-dev.js'
 			},
 			dashboardprod: {
 				src: [
-					// 'app/app_setup.js',
+					'app/app_setup.js',
 					'build/js/includes-prod.js'
 				],
 				dest: 'build/js/dashboard-prod.js'
