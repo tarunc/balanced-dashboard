@@ -16,7 +16,7 @@
 	"devDependencies": {
 		"grunt": "0.4.4",
 		"grunt-cli": "0.1.13",
-		"grunt-neuter": "0.6.0",
+		"grunt-neuter": "git@github.com:tarunc/grunt-neuter.git#patch-1",
 		"grunt-bower-task": "0.3.4",
 		"grunt-contrib-uglify": "0.4.0",
 		"grunt-contrib-less": "0.11.0",
@@ -40,6 +40,7 @@
 		"karma-qunit": "0.1.1",
 		"grunt-jsbeautifier": "0.2.6",
 		"grunt-istanbul-coverage": "0.0.5",
+		"grunt-istanbul": "0.2.5",
 		"grunt-coveralls": "~0.3.0"
 	},
 	"optionalDependencies": {

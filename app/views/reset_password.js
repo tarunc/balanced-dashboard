@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-require('app/views/login');
+require('views/login');
 
 Balanced.ResetPasswordView = Balanced.LoginView.extend({
 	templateName: 'resetPassword'

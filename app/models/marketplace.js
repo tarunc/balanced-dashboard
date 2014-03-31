@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-require('app/models/user_marketplace');
+require('models/user_marketplace');
 
 Balanced.Marketplace = Balanced.UserMarketplace.extend({
 	uri: '/marketplaces',

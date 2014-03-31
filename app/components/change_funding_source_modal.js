@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-require('app/components/modal');
+require('components/modal');
 
 Balanced.ChangeFundingSourceModalComponent = Balanced.ModalComponent.extend({
 	source_uri: null,

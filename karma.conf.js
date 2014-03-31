@@ -61,9 +61,9 @@ module.exports = function(config) {
 		// list of files to exclude
 		exclude: [],
 
-		preprocessors: {
-			'build/js/dashboard-test.js': ['coverage']
-		},
+		// preprocessors: {
+		// 'build/js/dashboard-test.js': ['coverage']
+		// },
 
 		// An array of allowed transport methods between the browser and testing server.
 		// This configuration setting is handed off to socket.io
@@ -73,7 +73,7 @@ module.exports = function(config) {
 
 		// test results reporter to use
 		// possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-		reporters: ['progress', 'coverage'],
+		reporters: ['progress'],
 
 		coverageReporter: {
 			reporters: [{

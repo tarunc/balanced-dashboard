@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-require('app/lib/variables');
+require('lib/variables');
 
 Balanced.NET = Ember.Namespace.create({
 	csrfToken: $.cookie(Balanced.COOKIE.CSRF_TOKEN),

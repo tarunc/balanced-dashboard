@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-require('app/models/mixins/meta_array');
+require('models/mixins/meta_array');
 
 var Computed = {
 	isStatus: function(status) {

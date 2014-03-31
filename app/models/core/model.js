@@ -1,11 +1,11 @@
 /* istanbul ignore next */
-require('app/models/core/mixins/load_promise');
+require('models/core/mixins/load_promise');
 /* istanbul ignore next */
-require('app/models/core/model_array');
+require('models/core/model_array');
 /* istanbul ignore next */
-require('app/models/core/type_mappings');
+require('models/core/type_mappings');
 /* istanbul ignore next */
-require('app/models/core/serializers/rev1');
+require('models/core/serializers/rev1');
 
 var JSON_PROPERTY_KEY = '__json';
 var URI_POSTFIX = "_uri";

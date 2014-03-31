@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-require('app/models/transaction');
+require('models/transaction');
 
 Balanced.Hold = Balanced.Transaction.extend({
 	card: Balanced.Model.belongsTo('card', 'Balanced.FundingInstrument'),

@@ -3,7 +3,7 @@
  */
 
 /* istanbul ignore next */
-require('app/lib/**/*');
+require('lib/**/*');
 
 /*
  * Model layer.
@@ -11,12 +11,12 @@ require('app/lib/**/*');
  * model layers elsewhere provide.
  */
 /* istanbul ignore next */
-require('app/models/core/core');
+require('models/core/core');
 /* istanbul ignore next */
-require('app/models/**/*');
+require('models/**/*');
 
 /* istanbul ignore next */
-require('app/auth');
+require('auth');
 
 /*
  * Views layer.
@@ -25,9 +25,9 @@ require('app/auth');
  * programming to do.
  */
 /* istanbul ignore next */
-require('app/views/_base');
+require('views/_base');
 /* istanbul ignore next */
-require('app/views/**/*');
+require('views/**/*');
 
 /*
  * Controller layer.
@@ -37,17 +37,17 @@ require('app/views/**/*');
  * controllers wrapped objects.
  */
 /* istanbul ignore next */
-require('app/controllers/_base');
+require('controllers/_base');
 /* istanbul ignore next */
-require('app/controllers/mixins/**/*');
+require('controllers/mixins/**/*');
 /* istanbul ignore next */
-require('app/controllers/**/*');
+require('controllers/**/*');
 
 /*
  * Components
  */
 /* istanbul ignore next */
-require('app/components/**/*');
+require('components/**/*');
 
 /*
  * States (i.e. Routes)
@@ -56,8 +56,8 @@ require('app/components/**/*');
  * actions.
  */
 /* istanbul ignore next */
-require('app/routes/router');
+require('routes/router');
 /* istanbul ignore next */
-require('app/routes/auth_route');
+require('routes/auth_route');
 /* istanbul ignore next */
-require('app/routes/**/*');
+require('routes/**/*');

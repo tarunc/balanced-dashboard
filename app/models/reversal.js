@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-require('app/models/transaction');
+require('models/transaction');
 
 Balanced.Reversal = Balanced.Transaction.extend({
 	credit: Balanced.Model.belongsTo('credit', 'Balanced.Credit'),

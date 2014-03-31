@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-require('app/models/transaction');
+require('models/transaction');
 
 Balanced.Credit = Balanced.Transaction.extend({
 	uri: '/credits',

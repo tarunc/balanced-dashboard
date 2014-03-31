@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-require('app/components/modal');
+require('components/modal');
 
 Balanced.ApiKeyDeleteModalComponent = Balanced.ModalComponent.extend({
 	moreWarning: function() {

@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-require('app/models/transaction');
+require('models/transaction');
 
 Balanced.Debit = Balanced.Transaction.extend({
 	source: Balanced.Model.belongsTo('source', 'Balanced.FundingInstrument'),

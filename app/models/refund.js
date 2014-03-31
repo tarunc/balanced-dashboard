@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-require('app/models/transaction');
+require('models/transaction');
 
 Balanced.Refund = Balanced.Transaction.extend({
 	debit: Balanced.Model.belongsTo('debit', 'Balanced.Debit'),
