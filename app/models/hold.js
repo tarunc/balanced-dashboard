@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 require('app/models/transaction');
 
 Balanced.Hold = Balanced.Transaction.extend({

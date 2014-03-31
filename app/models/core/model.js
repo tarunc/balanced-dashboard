@@ -1,6 +1,10 @@
+/* istanbul ignore next */
 require('app/models/core/mixins/load_promise');
+/* istanbul ignore next */
 require('app/models/core/model_array');
+/* istanbul ignore next */
 require('app/models/core/type_mappings');
+/* istanbul ignore next */
 require('app/models/core/serializers/rev1');
 
 var JSON_PROPERTY_KEY = '__json';

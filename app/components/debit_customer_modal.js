@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 require('app/components/modal');
 
 Balanced.DebitCustomerModalComponent = Balanced.ModalComponent.extend({

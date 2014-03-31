@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 require('app/lib/utils');
 
 Ember.Handlebars.registerBoundHelper('formatCurrency', Balanced.Utils.formatCurrency);

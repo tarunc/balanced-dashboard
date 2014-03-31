@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 require('app/models/mixins/meta_array');
 
 var Computed = {

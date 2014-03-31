@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 require('app/models/transaction');
 
 Balanced.Settlement = Balanced.Transaction.extend({

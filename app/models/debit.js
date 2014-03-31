@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 require('app/models/transaction');
 
 Balanced.Debit = Balanced.Transaction.extend({

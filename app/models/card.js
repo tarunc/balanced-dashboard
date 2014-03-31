@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 require('app/models/funding_instrument');
 
 Balanced.Card = Balanced.FundingInstrument.extend(Ember.Validations, {

@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 require('app/models/core/model_array');
 
 var readOnly = function(type) {

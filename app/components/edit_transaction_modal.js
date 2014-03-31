@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 require('app/components/modal');
 
 Balanced.EditTransactionModalComponent = Balanced.ModalComponent.extend({
