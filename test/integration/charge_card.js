@@ -48,7 +48,7 @@ test('can charge a card', function(assert) {
 		})
 		.then(function() {
 			assert.ok(tokenizingStub.calledOnce);
-			assert.ok(spy.calledTwice);
+			assert.ok(spy.calledOnce);
 			assert.ok(spy.calledWith(Balanced.Debit, '/cards/' + Testing.CARD_ID + '/debits', sinon.match({
 				amount: 1200,
 				appears_on_statement_as: 'My Charge',
@@ -86,7 +86,7 @@ test('charge a card only submits once despite multiple button clicks', function(
 			clickMultiple: '.modal-footer button:eq(1)'
 		})
 		.then(function() {
-			assert.ok(spy.calledTwice);
+			assert.ok(spy.calledOnce);
 			assert.ok(spy.calledWith(Balanced.Debit, '/cards/' + Testing.CARD_ID + '/debits', sinon.match({
 				amount: 1200,
 				appears_on_statement_as: 'My Charge',

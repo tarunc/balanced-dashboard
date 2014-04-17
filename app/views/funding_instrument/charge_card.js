@@ -32,6 +32,11 @@ Balanced.ChargeCardModalView = Balanced.FundingInstrumentModalView.extend({
 		save: function() {
 			var self = this;
 			var card = this.get('model.source');
+
+			if (this.get('model.isLoaded')) {
+				return this.hide();
+			}
+
 			if (this.beforeSave(this.get('model')) === false) {
 				return;
 			}

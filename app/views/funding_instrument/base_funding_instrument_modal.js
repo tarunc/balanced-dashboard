@@ -23,6 +23,7 @@ Balanced.FundingInstrumentModalView = Balanced.ModalView.extend({
 	},
 
 	afterSave: function(model) {
+		this.hide();
 		this.get('controller').transitionToRoute(model.get('route_name'), model);
 	}
 });
