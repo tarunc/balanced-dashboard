@@ -138,7 +138,8 @@ module.exports = function(grunt) {
 			libtest: {
 				src: [
 					'static/javascripts/sinon/index.js',
-					'static/javascripts/qunit/qunit/qunit.js'
+					'static/javascripts/qunit/qunit/qunit.js',
+					'static/javascripts/ember-qunit/dist/globals/main.js'
 				],
 				dest: 'build/test/js/test-runner.js'
 			}

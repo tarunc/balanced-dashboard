@@ -18,7 +18,8 @@
 		"jquery-csv": "",
 		"strapped": "0.1.15",
 		"sinon": "http://sinonjs.org/releases/sinon-1.9.0.js",
-		"qunit": "1.14.0"
+		"qunit": "1.14.0",
+		"ember-qunit": "0.1.7"
 	},
 	"resolutions": {
 		"jquery": "2.0.3",

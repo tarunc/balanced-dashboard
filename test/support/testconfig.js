@@ -26,10 +26,15 @@ QUnit.begin(function() {
 	Balanced.injectTestHelpers();
 
 	window.Balanced.onLoad();
+
 	// turn off ajax async
 	$.ajaxSetup({
 		async: false
 	});
+
+	// inject test helpers onto window
+	emq.globalize();
+	setResolver(Ember.DefaultResolver.create({ namespace: Balanced }));
 });
 
 QUnit.testStart(function(test) {
@@ -37,17 +42,16 @@ QUnit.testStart(function(test) {
 
 	// Reset the application
 	Balanced.reset();
+
+	// Restore all stubs and spies
 	sinon.restore();
+
+	// Create a new sandbox
 	sinon = _sinon.sandbox.create();
+	// Map sinon.match since sandbox does not have a match
+	sinon.match = _sinon.match;
 
-	_.each(_sinon, function(val, key) {
-		if (sinon[key]) {
-			return;
-		}
-
-		sinon[key] = val;
-	});
-
+	// Might error
 	try {
 		// Register all the types again
 		Balanced.register('user:main', null, {
@@ -61,15 +65,23 @@ QUnit.testStart(function(test) {
 		});
 	} catch(e){}
 
+	// If we were fixtured before, setup ajax
 	Testing.setupAjax();
+
+	// Visit login to make it just like before
 	visit('/login');
 });
 
 QUnit.testDone(function(test) {
 	console.log('#%@ %@: tearing down.'.fmt(test.module, test.name));
 
+	// Reset all elements
 	$('.modal.in').modal('hide');
-	$('#balanced-app').html('');
+	// $('#balanced-app').html('');
+
+	// Signout
 	Testing.signout();
+
+	// Restore all stubs and spies
 	sinon.restore();
 });
