@@ -309,7 +309,7 @@ test('can add bank account', function(assert) {
 			//assert.ok(spy.calledOnce);
 			//assert.ok(spy.calledWith(Balanced.BankAccount, '/bank_accounts', sinon.match(input)));
 
-			balanced.bankAccount.create.restore();
+
 		});
 });
 
@@ -348,7 +348,7 @@ test('can add card', function(assert) {
 			// this tests balanced.js
 			assert.ok(tokenizingStub.calledOnce);
 			assert.ok(tokenizingStub.calledWith(sinon.match(expected)));
-			balanced.card.create.restore();
+
 		});
 });
 
@@ -390,7 +390,7 @@ test('can add card with postal code', function(assert) {
 			// this tests balanced.js
 			assert.ok(tokenizingStub.calledOnce);
 			assert.ok(tokenizingStub.calledWith(sinon.match(expected)));
-			balanced.card.create.restore();
+
 		});
 });
 
@@ -443,7 +443,7 @@ test('can add card with address', function(assert) {
 			// this tests balanced.js
 			assert.ok(tokenizingStub.calledOnce);
 			assert.ok(tokenizingStub.calledWith(sinon.match(expected)));
-			balanced.card.create.restore();
+
 		});
 });
 

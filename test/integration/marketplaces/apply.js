@@ -12,22 +12,8 @@ module('Balanced.Marketplaces.apply', {
 				true,
 				false);
 		});
-
-		if (balanced.bankAccount.create.restore) {
-			balanced.bankAccount.create.restore();
-		}
-		if (Balanced.Adapter.create.restore) {
-			Balanced.Adapter.create.restore();
-		}
 	},
-	teardown: function() {
-		if (balanced.bankAccount.create.restore) {
-			balanced.bankAccount.create.restore();
-		}
-		if (Balanced.Adapter.create.restore) {
-			Balanced.Adapter.create.restore();
-		}
-	}
+	teardown: function() {}
 });
 
 test('we are on the correct page', function(assert) {
@@ -167,7 +153,7 @@ test('application submits properly', function(assert) {
 				routing_number: "321174851"
 			}));
 
-			balanced.bankAccount.create.restore();
+
 		});
 });
 

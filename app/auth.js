@@ -353,7 +353,7 @@ Balanced.register('user:main', null, {
 	singleton: true
 });
 
-Balanced.register('auth:main', Balanced.Auth, {
+Balanced.register('auth:main', auth, {
 	instantiate: false,
 	singleton: true
 });

@@ -16,21 +16,21 @@ module.exports = function(grunt) {
 			dev: {
 				options: {
 					includeSourceURL: true,
-					template: "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
+					// template: "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
 				},
 				src: ['app/dashboard.js'],
 				dest: 'build/js/includes-dev.js'
 			},
 			prod: {
 				options: {
-					template: "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
+					// template: "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
 				},
 				src: ['app/dashboard.js'],
 				dest: 'build/js/includes-prod.js'
 			},
 			templates: {
 				options: {
-					template: "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
+					// template: "window.balancedSetupFunctions.push(function() { {%= src %} ; });"
 				},
 				src: ['build/js/compiled-templates.js'],
 				dest: 'build/js/test-templates.js'

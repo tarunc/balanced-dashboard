@@ -50,7 +50,7 @@ test('debit card', function(assert) {
 							description: "Test debit"
 						})));
 
-						Balanced.Adapter.create.restore();
+
 					});
 			});
 		});
@@ -77,7 +77,7 @@ test('debiting only submits once despite multiple clicks', function(assert) {
 					.then(function() {
 						assert.ok(stub.calledOnce);
 
-						Balanced.Adapter.create.restore();
+
 					});
 			});
 		});
@@ -113,7 +113,7 @@ test('hold card', function(assert) {
 							source_uri: "/cards/" + Testing.CARD_ID
 						})));
 
-						Balanced.Adapter.create.restore();
+
 					});
 			});
 		});
@@ -140,7 +140,7 @@ test('holding only submits once despite multiple clicks', function(assert) {
 					.then(function() {
 						assert.ok(stub.calledOnce);
 
-						Balanced.Adapter.create.restore();
+
 					});
 			});
 		});
