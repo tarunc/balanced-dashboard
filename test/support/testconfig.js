@@ -48,16 +48,18 @@ QUnit.testStart(function(test) {
 		sinon[key] = val;
 	});
 
-	// Register all the types again
-	Balanced.register('user:main', null, {
-		instantiate: false,
-		singleton: true
-	});
+	try {
+		// Register all the types again
+		Balanced.register('user:main', null, {
+			instantiate: false,
+			singleton: true
+		});
 
-	Balanced.register('auth:main', Balanced.Auth, {
-		instantiate: false,
-		singleton: true
-	});
+		Balanced.register('auth:main', Balanced.Auth, {
+			instantiate: false,
+			singleton: true
+		});
+	} catch(e){}
 
 	Testing.setupAjax();
 	visit('/login');
@@ -66,6 +68,8 @@ QUnit.testStart(function(test) {
 QUnit.testDone(function(test) {
 	console.log('#%@ %@: tearing down.'.fmt(test.module, test.name));
 
+	$('.modal.in').modal('hide');
+	$('#balanced-app').html('');
 	Testing.signout();
 	sinon.restore();
 });
