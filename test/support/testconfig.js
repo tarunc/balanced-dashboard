@@ -34,7 +34,9 @@ QUnit.begin(function() {
 
 	// inject test helpers onto window
 	emq.globalize();
-	setResolver(Ember.DefaultResolver.create({ namespace: Balanced }));
+	setResolver(Ember.DefaultResolver.create({
+		namespace: Balanced
+	}));
 });
 
 QUnit.testStart(function(test) {
@@ -63,7 +65,7 @@ QUnit.testStart(function(test) {
 			instantiate: false,
 			singleton: true
 		});
-	} catch(e){}
+	} catch (e) {}
 
 	// If we were fixtured before, setup ajax
 	Testing.setupAjax();
