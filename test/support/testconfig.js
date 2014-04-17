@@ -1,6 +1,6 @@
 document.write('<script src="https:\/\/js.balancedpayments.com\/1.1\/balanced.js"><\/script>');
 
-QUnit.config.testTimeout = 30000;
+QUnit.config.testTimeout = 60000;
 
 $('<style>#ember-testing-container { position: absolute; background: white; bottom: 0; right: 0; width: 640px; height: 600px; overflow: auto; z-index: 9999; border: 1px solid #ccc; } #ember-testing { zoom: 50%; }</style>').appendTo('head');
 $('<div id="ember-testing-container"><div id="balanced-app"></div></div>').appendTo(document.body);

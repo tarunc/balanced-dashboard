@@ -129,7 +129,7 @@ module.exports = function(config) {
 		client: {
 			useIframe: false,
 		},
-		reportSlowerThan: 7000,
+		reportSlowerThan: 20000,
 
 		// Continuous Integration mode
 		// if true, it capture browsers, run tests and exit

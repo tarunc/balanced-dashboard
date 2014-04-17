@@ -122,6 +122,10 @@ var Testing = {
 	},
 
 	setupCreatedMarketplace: function(marketplace) {
+		if (!marketplace) {
+			return;
+		}
+
 		this.marketplace = marketplace;
 
 		this.MARKETPLACE_ID = marketplace.get('id');
@@ -368,6 +372,21 @@ var Testing = {
 		});
 	},
 
+	setupResults: function(controller, cb, howMany, type) {
+		var self = this;
+
+		Ember.run(function() {
+			controller.get('results').then(function(results) {
+				// Wait for atleast 4 results
+				if (results.get('length') < howMany && results.get('total_' + (type === 'search' ? 'transaction' : type) + 's') < howMany) {
+					return setTimeout(cb, 1000);
+				}
+
+				self.start();
+			});
+		});
+	},
+
 	setupSearch: function(howMany, type) {
 		var self = this;
 		howMany = howMany || 1;
@@ -379,7 +398,7 @@ var Testing = {
 
 		// Visit the marketplace route to initialize everything
 		Ember.run(function() {
-			visit(Testing.MARKETPLACE_ROUTE);
+			visit(self.MARKETPLACE_ROUTE);
 		});
 
 		var searchController = Balanced.__container__.lookup('controller:search');
@@ -392,16 +411,33 @@ var Testing = {
 			});
 		});
 
-		Ember.run(function() {
-			searchController.get('results').then(function(results) {
-				// Wait for atleast 4 results
-				if (results.get('length') < howMany && results.get('total_' + (type === 'search' ? 'transaction' : type) + 's') < howMany) {
-					return setTimeout(_.bind(Testing.setupSearch, Testing, howMany, type), 1000);
-				}
+		this.setupResults(searchController, _.bind(Testing.setupSearch, Testing, howMany, type), howMany, type);
+	},
 
-				self.start();
-			});
+	setupActivity: function(howMany, type) {
+		var self = this;
+		howMany = howMany || 1;
+		type = type || 'transaction';
+
+		// Call stop to stop executing the tests before
+		// a log is created
+		this.stop();
+
+		// Visit the activity route to initialize everything
+		Ember.run(function() {
+			visit(self.ACTIVITY_ROUTE);
 		});
+
+		var activityController = Balanced.__container__.lookup('controller:activity');
+
+		Ember.run(function() {
+			activityController.setProperties({
+				type: type
+			});
+			activityController.send('reload');
+		});
+
+		this.setupResults(activityController, _.bind(Testing.setupActivity, Testing, howMany, type), howMany, type);
 	},
 
 	createDispute: function(howMany) {
