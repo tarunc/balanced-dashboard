@@ -60,6 +60,7 @@ QUnit.testStart(function(test) {
 	});
 
 	Testing.setupAjax();
+	visit('/login');
 });
 
 QUnit.testDone(function(test) {
