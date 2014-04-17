@@ -78,6 +78,10 @@ var Testing = {
 		window.setupTestFixtures();
 	},
 
+	setupAjax: function() {
+		Balanced.Adapter = Balanced.AjaxAdapter.create();
+	},
+
 	fixtureLogin: function() {
 		var self = this;
 		Ember.run(function() {

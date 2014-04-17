@@ -58,14 +58,13 @@ QUnit.testStart(function(test) {
 		instantiate: false,
 		singleton: true
 	});
+
+	Testing.setupAjax();
 });
 
 QUnit.testDone(function(test) {
 	console.log('#%@ %@: tearing down.'.fmt(test.module, test.name));
 
-	Ember.run(function() {
-		Balanced.Auth.signOut();
-	});
-
+	Testing.logout();
 	sinon.restore();
 });
