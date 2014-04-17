@@ -336,6 +336,9 @@ module.exports = function(grunt) {
 					src: 'static/javascripts/sinon/index.js',
 					dest: 'build/test/js/sinon.js'
 				}, {
+					src: 'static/javascripts/ember-qunit/dist/globals/main.js',
+					dest: 'build/test/js/ember-qunit.js'
+				}, {
 					src: 'test/support/lib/balanced.min.js',
 					dest: 'build/test/js/balanced.min.js'
 				}]
