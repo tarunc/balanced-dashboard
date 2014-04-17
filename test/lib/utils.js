@@ -108,6 +108,13 @@ var Testing = {
 		});
 	},
 
+	signout: function() {
+		Ember.run(function() {
+			Balanced.Auth.forgetLogin();
+			Balanced.Auth.forgetLastUsedMarketplaceUri();
+		});
+	},
+
 	// build up test fixtures
 	setupMarketplace: function() {
 		var self = this;

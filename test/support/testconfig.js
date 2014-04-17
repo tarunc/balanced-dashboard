@@ -65,6 +65,6 @@ QUnit.testStart(function(test) {
 QUnit.testDone(function(test) {
 	console.log('#%@ %@: tearing down.'.fmt(test.module, test.name));
 
-	Testing.logout();
+	Testing.signout();
 	sinon.restore();
 });
