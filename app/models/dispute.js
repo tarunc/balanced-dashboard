@@ -9,6 +9,8 @@ var Computed = {
 Balanced.Dispute = Balanced.Model.extend(Balanced.MetaArrayMixin, {
 	transaction: Balanced.Model.belongsTo('transaction', 'Balanced.Transaction'),
 	events: Balanced.Model.hasMany('events', 'Balanced.Event'),
+	documents: Balanced.Model.hasMany('dispute_documents', 'Balanced.DisputeDocument'),
+	dispute_documents_uri: '/documents',
 
 	amount_dollars: function() {
 		if (this.get('amount')) {
